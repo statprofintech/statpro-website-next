@@ -1,3 +1,6 @@
+// Required for Next.js static export (output: 'export').
+export const dynamic = 'force-static'
+
 import { SITE_URL, PUBLIC_PATHS } from '@/lib/seo-config'
 
 const priority = (p) => {

@@ -1,3 +1,6 @@
+// Required for Next.js static export (output: 'export').
+export const dynamic = 'force-static'
+
 import { SITE_URL } from '@/lib/seo-config'
 
 export default function robots() {
