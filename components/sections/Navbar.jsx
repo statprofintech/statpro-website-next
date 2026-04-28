@@ -301,7 +301,7 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-2">
-          <Link href="/client/sign-in" className="text-[14px] font-medium text-ink-2 hover:text-ink px-3 py-2">Client sign in</Link>
+          <Link href="/client/sign-in" className="text-[14px] font-medium text-ink-2 hover:text-ink px-3 py-2">Sign In</Link>
           <Link
             href="/apply"
             className="inline-flex items-center gap-1.5 bg-blue text-white hover:bg-blue-hover transition text-[14px] font-semibold px-4 py-2.5 rounded-lg shadow-lg shadow-blue/30"
