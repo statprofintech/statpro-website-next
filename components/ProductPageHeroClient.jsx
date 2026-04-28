@@ -31,8 +31,6 @@ export default function ProductPageHeroClient({ c }) {
   return (
     <section
       className="relative bg-navy-deep text-white overflow-hidden pt-24 pb-12 lg:pt-28 lg:pb-14"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute -top-1/3 -left-1/4 w-[900px] h-[900px] rounded-full opacity-50"

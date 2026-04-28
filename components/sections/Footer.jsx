@@ -149,7 +149,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-white/10">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-[12.5px] text-white/55">
             <div>
-              © 2026 <span className="font-semibold text-white/85">Statpro Fintech Pvt. Ltd.</span> · CIN U65999MHXXXXPTCXXXXX
+              © 2026 <span className="font-semibold text-white/85">Statpro Fintech Pvt. Ltd.</span> · CIN U67110WB2021PTC243525
             </div>
             <div className="flex items-center gap-4 flex-wrap">
               <span className="inline-flex items-center gap-1.5 text-white/65">

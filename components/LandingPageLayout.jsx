@@ -142,7 +142,7 @@ function LandingFooter() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[11.5px] text-white/45">
-          <div>© 2026 Statpro Fintech Pvt. Ltd. · DSA partner to RBI-regulated lenders · CIN U65999MHXXXXPTCXXXXX</div>
+          <div>© 2026 Statpro Fintech Pvt. Ltd. · DSA partner to RBI-regulated lenders · CIN U67110WB2021PTC243525</div>
         </div>
 
         {/* Disclaimer — same on every landing page, theme-neutral */}
