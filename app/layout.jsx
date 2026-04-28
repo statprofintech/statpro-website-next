@@ -55,6 +55,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* Preconnect to GTM/Analytics origins — saves ~350-390ms per domain on first request */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://stats.g.doubleclick.net" />
+        <link rel="dns-prefetch" href="https://analytics.google.com" />
         <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" crossOrigin="anonymous" />
         <style dangerouslySetInnerHTML={{ __html: FONTS_CSS }} />
         {/* JSON-LD Organization (per-page extras emitted by individual page.jsx). */}
