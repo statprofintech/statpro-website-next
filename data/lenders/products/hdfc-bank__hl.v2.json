@@ -1,0 +1,202 @@
+{
+  "$schema": "../schema/product.v2.schema.json",
+  "product_id": "hdfc-bank/hl",
+  "partner_id": "hdfc-bank",
+  "family": "HL",
+  "product_name_official": "HDFC Bank Home Loans",
+  "product_summary": "HDFC Bank's full home-loan suite: financing for purchase / construction / resale / plot / extension / renovation / rural housing, plus Balance Transfer + Top-up. Loans up to ₹10 Cr, tenure up to 30 yrs, multiple custom-repayment plans (SURF, FLIP, tranche-based EMI).",
+  "scraped_at": "2026-04-27",
+  "review_status": "pending",
+  "review_notes": "Migrated from 8 v1 files (home-loan, BT, top-up, plot, rural, renovation, extension; PMAY dropped per scope lock). 9 variants collapsed into one base + variants[] structure.",
+
+  "base": {
+    "borrower_classes": ["RETAIL_INDIVIDUAL_SALARIED", "RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL", "AGRICULTURIST", "NRI"],
+    "loan_facility_types": ["TERM_LOAN"],
+
+    "pricing": {
+      "roi": {
+        "state": "RANGE_KNOWN",
+        "min_pct": 7.75,
+        "max_pct": 13.20,
+        "basis": "Policy Repo Rate + 2.50% to 7.95%",
+        "benchmark": "REPO",
+        "is_risk_priced": false,
+        "as_of_date": "2026-04-27"
+      },
+      "processing_fee": {
+        "basis": "MAX_OF_PCT_AND_FLAT",
+        "pct_min": 0.50,
+        "pct_max": 1.50,
+        "flat_inr_min": 4000,
+        "flat_inr_max": 5000,
+        "notes": "Salaried/SE-Prof: 0.50% or ₹4,000 whichever higher. SE-Non-Prof: 1.50% or ₹5,000 whichever higher. NRI/HDFC Reach: up to 2.00%."
+      },
+      "foreclosure": {
+        "applies_to": "FIXED_ONLY",
+        "pct": 2.0,
+        "exempt_for_self_funded": true,
+        "notes": "Floating-rate loans: nil prepayment for individuals on non-business loans."
+      },
+      "prepayment": {
+        "applies_to": "FIXED_ONLY",
+        "pct": 2.0,
+        "exempt_for_self_funded": true
+      },
+      "bounce_charges": { "flat_inr": 450, "bands": null },
+      "other_charges_notes": "Conversion fee (floating to fixed): ₹3,000. Re-appraisal after 6 months: ₹3,300-₹5,000. Property document retention: ₹1,000/month after 60 days from closure. Administrative charges ₹5,000. Senior citizen discount 10% on service charges."
+    },
+
+    "loan_structure": {
+      "ltv_pct_max": 90,
+      "tenure_months_min": 12,
+      "tenure_months_max": 360,
+      "ticket_inr_min": 100000,
+      "ticket_inr_max": 1000000000
+    },
+
+    "eligibility": {
+      "borrower_classes": ["RETAIL_INDIVIDUAL_SALARIED", "RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL"],
+      "entity_types": ["Individual", "Salaried", "Self-Employed Professional", "Self-Employed Non-Professional"],
+      "individual": {
+        "min_age_at_application": 21,
+        "max_age_at_application": 70,
+        "min_monthly_income_salaried_inr": 10000,
+        "min_annual_income_inr": 200000
+      },
+      "business": { "min_itr_years": 2 },
+      "co_applicant": { "required": false, "eligible_relations": ["spouse", "parent", "21+ child"] },
+      "geographies": ["India", "NRI locations including UK"]
+    },
+
+    "collateral_accepted": [
+      { "type": "RESIDENTIAL_SELF_OCCUPIED", "preferred": true, "ltv_override_pct": 90 },
+      { "type": "RESIDENTIAL_VACANT",        "preferred": true, "ltv_override_pct": 80 },
+      { "type": "UNDER_CONSTRUCTION",        "preferred": true, "ltv_override_pct": 80 }
+    ],
+
+    "documents_required": {
+      "kyc": ["PAN / Form 60", "Aadhaar / Passport / Voter ID / Driving License / NREGA card"],
+      "income_salaried":      ["3 months salary slips", "Form 16", "6 months bank statement"],
+      "income_self_employed": ["ITR last 2 AYs", "Audited Balance Sheet + P&L last 2 yrs", "12 months current account statement"],
+      "property":             ["Title deeds", "Allotment letter / Agreement to Sell", "Approved construction plan", "Construction estimate by architect", "Own contribution proof"],
+      "business_kyc":         ["MOA/AOA", "Partnership deed", "Director / shareholder list", "Business profile"],
+      "other":                ["Form 26AS", "Processing fee cheque", "Passport-size photographs", "Employment contract / appointment letter"]
+    },
+
+    "claimed_turnaround": null,
+    "delivery_channels":   ["BRANCH", "DIGITAL_SELF_SERVE", "DOORSTEP", "WHATSAPP"],
+    "assessment_methods":  ["ITR_BASED", "BANK_STATEMENT_BASED", "FINANCIAL_BASED"],
+
+    "key_features": [
+      "Loans up to ₹10 Crore",
+      "End-to-end digital application",
+      "4-step quick approval",
+      "Customized repayment plans: SURF (Step Up), FLIP (Flexible Loan Installments)",
+      "Tranche-based EMI for under-construction",
+      "Accelerated repayment scheme",
+      "Co-applicant facility for higher eligibility",
+      "Tax benefits under Sections 80C, 24(b), 80EEA",
+      "Pre-approved loans valid for 6 months",
+      "Senior citizen discount on service charges (10%)",
+      "Variable / fixed / combination rate options",
+      "Balance transfer + top-up facility from other lenders"
+    ],
+    "fees_table_raw": "PF: Salaried/SE-Prof 0.50% or ₹4,000 (whichever higher); SE-Non-Prof 1.50% or ₹5,000 (whichever higher). Conversion (floating to fixed): ₹3,000. Re-appraisal after 6 mo: ₹3,300-₹5,000. Foreclosure (fixed): 2% + taxes. Foreclosure (floating individual): nil. Bounce: ₹450. Property doc retention: ₹1,000/mo after 60 days. Admin: ₹5,000.",
+
+    "bundled_insurance_note": null
+  },
+
+  "variants": [
+    {
+      "code": "FRESH",
+      "label": "New Purchase / Construction",
+      "source_url": "https://homeloans.hdfc.bank.in/housing-loans/home-loans"
+    },
+    {
+      "code": "RESALE",
+      "label": "Resale Property"
+    },
+    {
+      "code": "BT",
+      "label": "Home Loan Balance Transfer",
+      "source_url": "https://homeloans.hdfc.bank.in/home-loan-balance-transfer",
+      "min_existing_loan_months": 12
+    },
+    {
+      "code": "BT_TOPUP",
+      "label": "Home Loan Balance Transfer + Top-up",
+      "source_url": "https://homeloans.hdfc.bank.in/home-loan-balance-transfer",
+      "topup_max_inr": 10000000,
+      "min_existing_loan_months": 12
+    },
+    {
+      "code": "TOPUP",
+      "label": "Top-up on Existing HDFC Home Loan",
+      "source_url": "https://homeloans.hdfc.bank.in/housing-loans/top-up-loans",
+      "min_existing_loan_months": 12,
+      "topup_max_inr": 10000000,
+      "pricing_override": {
+        "roi": {
+          "state": "RANGE_KNOWN",
+          "min_pct": 8.0,
+          "max_pct": 13.7,
+          "basis": "Policy Repo Rate + 2.75% to 8.45%",
+          "benchmark": "REPO"
+        },
+        "processing_fee": { "basis": "MAX_OF_PCT_AND_FLAT", "pct_min": 1.0, "pct_max": 1.0, "flat_inr_min": 7500 },
+        "foreclosure": { "applies_to": "FIXED_ONLY", "pct": 2.5 },
+        "prepayment":  { "applies_to": "FIXED_ONLY", "pct": 2.5, "notes": "No charges for part-prepayment up to 25% of principal once per FY" }
+      },
+      "loan_structure_override": { "tenure_months_max": 180 }
+    },
+    {
+      "code": "PLOT",
+      "label": "Plot Loan",
+      "source_url": "https://homeloans.hdfc.bank.in/housing-loans/plot-loans",
+      "loan_structure_override": { "ltv_pct_max": 80, "tenure_months_max": 180 }
+    },
+    {
+      "code": "CONSTRUCTION",
+      "label": "Self-Construction Loan"
+    },
+    {
+      "code": "RENOVATION",
+      "label": "House Renovation Loan",
+      "source_url": "https://homeloans.hdfc.bank.in/housing-loans/home-renovation-loans",
+      "loan_structure_override": { "ltv_pct_max": 100, "tenure_months_max": 180 }
+    },
+    {
+      "code": "EXTENSION",
+      "label": "Home Extension Loan",
+      "source_url": "https://homeloans.hdfc.bank.in/housing-loans/home-extension-loan",
+      "loan_structure_override": { "tenure_months_max": 240 }
+    },
+    {
+      "code": "RURAL",
+      "label": "Rural Housing Loan",
+      "source_url": "https://homeloans.hdfc.bank.in/housing-loans/rural-housing-loans",
+      "audience_tags": ["AGRICULTURIST"],
+      "pricing_override": {
+        "roi": { "state": "RANGE_KNOWN", "min_pct": 8.4, "max_pct": 13.2, "basis": "PRR + 2.90% to 7.70%", "benchmark": "REPO" }
+      },
+      "eligibility_override": {
+        "business": { "min_itr_years": null }
+      }
+    }
+  ],
+
+  "scheme_overlays": ["SENIOR_CITIZEN_DISCOUNT"],
+  "regulatory_disclosures": ["FLOATING_RATE_RESET_OPTIONS", "PROPERTY_DOC_RETRIEVAL_TIMELINE"],
+
+  "source_map": {
+    "base.pricing.roi":         "https://homeloans.hdfc.bank.in/housing-loans/home-loans",
+    "base.eligibility":         "https://homeloans.hdfc.bank.in/housing-loans/home-loans",
+    "base.documents_required":  "https://homeloans.hdfc.bank.in/housing-loans/home-loans"
+  },
+
+  "data_quality": {
+    "completeness_pct": 0.92,
+    "fields_missing": ["claimed_turnaround", "eligibility.individual.min_credit_score"],
+    "needs_retry_for": []
+  }
+}

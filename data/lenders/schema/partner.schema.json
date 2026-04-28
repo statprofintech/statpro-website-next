@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://statproindia.com/schema/lender-partner.json",
+  "title": "Lending Partner",
+  "type": "object",
+  "required": ["partner_id", "name", "category", "website"],
+  "additionalProperties": false,
+  "properties": {
+    "partner_id": { "type": "string", "description": "kebab-case unique id" },
+    "name": { "type": "string" },
+    "legal_name": { "type": ["string", "null"] },
+    "category": {
+      "type": "string",
+      "enum": [
+        "PRIVATE_BANK", "PSU_BANK", "FOREIGN_BANK", "SMALL_FINANCE_BANK",
+        "HOUSING_FINANCE", "NBFC_LARGE", "NBFC_SME", "NBFC_LAS", "NBFC_DSA"
+      ]
+    },
+    "website": { "type": "string", "format": "uri" },
+    "logo_path": { "type": ["string", "null"] },
+    "rbi_license_status": { "type": ["string", "null"] },
+    "products_scraped": { "type": "array", "items": { "type": "string" } },
+    "scrape_status": { "type": "string", "enum": ["pending", "in_progress", "complete", "blocked"] },
+    "last_scraped_at": { "type": ["string", "null"], "format": "date" },
+    "notes": { "type": ["string", "null"] }
+  }
+}

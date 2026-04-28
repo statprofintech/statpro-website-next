@@ -1,0 +1,32 @@
+{
+  "partner_id": "hdfc-bank",
+  "product_code": "loan-against-property",
+  "product_family": "LAP",
+  "product_name_official": "Loan Against Property",
+  "product_summary": null,
+  "source_url": "https://www.hdfc.bank.in/loan-against-property",
+  "scraped_at": "2026-04-27",
+  "review_status": "needs_retry",
+  "review_notes": "Hub page is a JS-rendered SPA — WebFetch could only read the shell. Sub-pages /loan-against-property/interest-rates and /loan-against-property/eligibility returned 404 (post-merger URL structure unclear). RETRY via Playwright headless browser, or fetch from HDFC's PDF rate cards. Use this record as a placeholder so the partner index is complete.",
+  "eligibility": {
+    "entity_types": null, "min_age": null, "max_age": null,
+    "salaried_min_income_inr_monthly": null, "self_employed_min_income_inr_annual": null,
+    "min_business_vintage_years": null, "min_itr_years": null, "min_credit_score": null,
+    "geographies": null
+  },
+  "pricing": {
+    "roi_min_pct": null, "roi_max_pct": null, "roi_basis": null,
+    "processing_fee_pct_min": null, "processing_fee_pct_max": null, "processing_fee_flat_inr": null,
+    "foreclosure_charges_pct": null, "prepayment_charges_pct": null, "other_charges_notes": null
+  },
+  "loan_structure": {
+    "ltv_pct_max": null, "tenure_months_min": null, "tenure_months_max": null,
+    "ticket_inr_min": null, "ticket_inr_max": null
+  },
+  "collateral_accepted": null,
+  "documents_required": null,
+  "turnaround_days": { "sanction": null, "disbursal": null },
+  "key_features": null,
+  "fees_table_raw": null,
+  "data_quality": { "completeness_pct": 0.05, "fields_missing": ["ALL"] }
+}

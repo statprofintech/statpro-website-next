@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://statproindia.com/schema/lender-product.json",
+  "title": "Lender Product",
+  "description": "Structured record of a single loan product offered by a lending partner. One file per (partner_id, product_code).",
+  "type": "object",
+  "required": [
+    "partner_id", "product_code", "product_family", "product_name_official",
+    "source_url", "scraped_at", "review_status", "data_quality"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "partner_id": { "type": "string", "description": "kebab-case partner identifier matching partners.json" },
+    "product_code": { "type": "string", "description": "kebab-case stable product identifier within the partner" },
+    "product_family": {
+      "type": "string",
+      "enum": [
+        "LAP", "LAP_BT_TOPUP", "HOME_LOAN", "HOME_LOAN_BT", "HOME_LOAN_TOPUP",
+        "PLOT_LOAN", "RURAL_HOUSING", "RENOVATION", "EXTENSION",
+        "BUSINESS_LOAN", "WORKING_CAPITAL", "OVERDRAFT", "PERSONAL_LOAN",
+        "LAS", "LRD", "PROJECT_FINANCE", "PMAY", "OTHER"
+      ]
+    },
+    "product_name_official": { "type": "string" },
+    "product_summary": { "type": ["string", "null"] },
+    "source_url": { "type": "string", "format": "uri" },
+    "scraped_at": { "type": "string", "format": "date" },
+    "review_status": { "type": "string", "enum": ["pending", "approved", "needs_retry", "rejected"] },
+    "review_notes": { "type": ["string", "null"] },
+
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entity_types": { "type": ["array", "null"], "items": { "type": "string" } },
+        "min_age": { "type": ["integer", "null"] },
+        "max_age": { "type": ["integer", "null"] },
+        "salaried_min_income_inr_monthly": { "type": ["integer", "null"] },
+        "self_employed_min_income_inr_annual": { "type": ["integer", "null"] },
+        "min_business_vintage_years": { "type": ["integer", "null"] },
+        "min_itr_years": { "type": ["integer", "null"] },
+        "min_credit_score": { "type": ["integer", "null"] },
+        "geographies": { "type": ["array", "null"], "items": { "type": "string" } }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "roi_min_pct": { "type": ["number", "null"] },
+        "roi_max_pct": { "type": ["number", "null"] },
+        "roi_basis": { "type": ["string", "null"] },
+        "processing_fee_pct_min": { "type": ["number", "null"] },
+        "processing_fee_pct_max": { "type": ["number", "null"] },
+        "processing_fee_flat_inr": { "type": ["integer", "null"] },
+        "foreclosure_charges_pct": { "type": ["number", "null"] },
+        "prepayment_charges_pct": { "type": ["number", "null"] },
+        "other_charges_notes": { "type": ["string", "null"] }
+      }
+    },
+    "loan_structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ltv_pct_max": { "type": ["number", "null"] },
+        "tenure_months_min": { "type": ["integer", "null"] },
+        "tenure_months_max": { "type": ["integer", "null"] },
+        "ticket_inr_min": { "type": ["integer", "null"] },
+        "ticket_inr_max": { "type": ["integer", "null"] }
+      }
+    },
+    "collateral_accepted": { "type": ["array", "null"], "items": { "type": "string" } },
+    "documents_required": { "type": ["array", "null"], "items": { "type": "string" } },
+    "turnaround_days": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sanction": { "type": ["array", "null"], "items": { "type": "integer" } },
+        "disbursal": { "type": ["array", "null"], "items": { "type": "integer" } }
+      }
+    },
+    "key_features": { "type": ["array", "null"], "items": { "type": "string" } },
+    "fees_table_raw": { "type": ["string", "null"] },
+    "data_quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "completeness_pct": { "type": "number", "minimum": 0, "maximum": 1 },
+        "fields_missing": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

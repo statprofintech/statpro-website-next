@@ -1,0 +1,129 @@
+{
+  "$schema": "../schema/product.v2.schema.json",
+  "product_id": "hdfc-bank/lap",
+  "partner_id": "hdfc-bank",
+  "family": "LAP",
+  "product_name_official": "HDFC Bank Loan Against Property",
+  "product_summary": "HDFC Bank LAP for residential, commercial, and special properties — for personal or business needs. Term Loan + Dropline OD facility. Embeds Loan Against Rent Receivables (LARR) up to 50% of commercial property value.",
+  "scraped_at": "2026-04-27",
+  "review_status": "pending",
+  "review_notes": "Migrated from v1 placeholder (now populated via Playwright batch 6). LARR captured as a variant within LAP — HDFC treats rent-receivable financing as a sub-product of LAP rather than a standalone LRD line.",
+
+  "base": {
+    "borrower_classes": ["RETAIL_INDIVIDUAL_SALARIED", "RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL", "NRI"],
+    "loan_facility_types": ["TERM_LOAN", "FLEXI_DROPLINE"],
+
+    "pricing": {
+      "roi": {
+        "state": "FLOOR_ONLY",
+        "min_pct": 8.55,
+        "max_pct": 14.0,
+        "basis": "Floating; partial range visible in calculator (8-14%)",
+        "benchmark": "REPO",
+        "as_of_date": "2026-04-27"
+      },
+      "processing_fee": null,
+      "other_charges_notes": "All applicable charges transparently communicated during loan processing stage."
+    },
+
+    "loan_structure": {
+      "ltv_pct_max": 65,
+      "tenure_months_min": 12,
+      "tenure_months_max": 180,
+      "ticket_inr_min": 1100000,
+      "ticket_inr_max": 100000000
+    },
+
+    "eligibility": {
+      "borrower_classes": ["RETAIL_INDIVIDUAL_SALARIED", "RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL", "NRI"],
+      "entity_types": ["Salaried Individual", "Self Employed", "Professionals", "NRI"],
+      "individual": null,
+      "business": null,
+      "co_applicant": { "required": false }
+    },
+
+    "collateral_accepted": [
+      { "type": "RESIDENTIAL_SELF_OCCUPIED", "preferred": true,  "ltv_override_pct": 65 },
+      { "type": "COMMERCIAL_OFFICE",         "preferred": true,  "ltv_override_pct": 65 },
+      { "type": "COMMERCIAL_SHOP",           "preferred": true,  "ltv_override_pct": 65 },
+      { "type": "SPECIAL_HOSPITAL",          "preferred": false },
+      { "type": "SPECIAL_SCHOOL",            "preferred": false },
+      { "type": "RECEIVABLES_LRD",           "preferred": true,  "ltv_override_pct": 50, "tenure_months_max_override": null }
+    ],
+
+    "documents_required": {
+      "kyc":                  ["Voter's ID card", "Employer's card"],
+      "income_salaried":      ["Latest bank statement / passbook", "Last 6 months salary slips", "Form 16 for previous 2 years"],
+      "income_self_employed": ["Latest bank statement / passbook", "ITR + computation last 2 yrs"],
+      "property":             ["Copies of all property documents of the property to be pledged"],
+      "business_kyc":         [],
+      "other":                ["Address proof: Ration card / telephone bill / electricity bill / Voter ID"]
+    },
+
+    "claimed_turnaround": {
+      "sanction_days_normal": 7,
+      "sanction_days_with_field_inspection": 25,
+      "disbursal_days_max": null,
+      "preapproved_customer_disbursal_seconds": null
+    },
+
+    "delivery_channels":  ["BRANCH", "DIGITAL_SELF_SERVE", "DOORSTEP"],
+    "assessment_methods": ["ITR_BASED", "BANK_STATEMENT_BASED"],
+
+    "key_features": [
+      "Loan up to 65% of property's market value",
+      "LARR (Loan Against Rent Receivables) up to 50% of commercial property value",
+      "Term Loan + Dropline Overdraft facility available",
+      "Tenure up to 15 years",
+      "Residential, commercial, and special properties accepted",
+      "Decision in 7 days (25 days with field inspection)",
+      "Doorstep service",
+      "Tailored programs for self-employed",
+      "Useful for debt consolidation"
+    ],
+    "fees_table_raw": null,
+    "bundled_insurance_note": null
+  },
+
+  "variants": [
+    {
+      "code": "FRESH",
+      "label": "Loan Against Property",
+      "source_url": "https://www.hdfc.bank.in/loan-against-property"
+    },
+    {
+      "code": "BT",
+      "label": "Loan Against Property — Balance Transfer",
+      "min_existing_loan_months": 12
+    },
+    {
+      "code": "BT_TOPUP",
+      "label": "Loan Against Property — Balance Transfer + Top-up",
+      "min_existing_loan_months": 12
+    },
+    {
+      "code": "DROPLINE_OD",
+      "label": "LAP — Dropline Overdraft Facility"
+    },
+    {
+      "code": "OTHER",
+      "label": "Loan Against Rent Receivables (LARR)",
+      "variant_label_freetext": "LARR — funding against commercial-property rental receivables; up to 50% of property value; embedded inside LAP family rather than treated as standalone LRD"
+    }
+  ],
+
+  "scheme_overlays": [],
+  "regulatory_disclosures": ["FLOATING_RATE_RESET_OPTIONS", "PROPERTY_DOC_RETRIEVAL_TIMELINE"],
+
+  "source_map": {
+    "base.pricing.roi":         "https://www.hdfc.bank.in/loan-against-property",
+    "base.loan_structure":      "https://www.hdfc.bank.in/loan-against-property",
+    "base.collateral_accepted": "https://www.hdfc.bank.in/loan-against-property"
+  },
+
+  "data_quality": {
+    "completeness_pct": 0.65,
+    "fields_missing": ["pricing.processing_fee", "pricing.foreclosure", "pricing.prepayment", "eligibility.individual", "eligibility.business", "fees_table_raw"],
+    "needs_retry_for": ["pricing.processing_fee — not on hub page; check rate-card PDF"]
+  }
+}

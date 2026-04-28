@@ -1,0 +1,147 @@
+{
+  "$schema": "../schema/product.v2.schema.json",
+  "product_id": "hdfc-bank/bl",
+  "partner_id": "hdfc-bank",
+  "family": "BL",
+  "product_name_official": "HDFC Bank XPRESS Business Loan",
+  "product_summary": "Collateral-free Business Loan up to ₹1 Cr (₹75 L base, ₹1 Cr in select locations). Includes Dropline Overdraft Facility ₹1-25 L embedded as a variant. Tailored sub-products by profession.",
+  "scraped_at": "2026-04-27",
+  "review_status": "pending",
+  "review_notes": "Migrated from v1 placeholder; data backfilled via Playwright batch 6.",
+
+  "base": {
+    "borrower_classes": ["RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL", "PROPRIETOR", "PARTNERSHIP", "LLP", "PVT_LTD"],
+    "loan_facility_types": ["TERM_LOAN", "FLEXI_DROPLINE"],
+
+    "pricing": {
+      "roi": {
+        "state": "RANGE_KNOWN",
+        "min_pct": 9.99,
+        "max_pct": 24.0,
+        "basis": "Calculator range; advertised 'starting from 16.85%'. Wide range = risk-priced unsecured BL.",
+        "is_risk_priced": true,
+        "as_of_date": "2026-04-27"
+      },
+      "processing_fee": {
+        "basis": "PCT_OF_LOAN",
+        "pct_max": 2.0,
+        "notes": "2% + GST standard across BL products"
+      },
+      "default_interest_pct_pa": null,
+      "other_charges_notes": "Stamp duty mandatory even for pre-approved offers; varies by state."
+    },
+
+    "loan_structure": {
+      "ltv_pct_max": null,
+      "tenure_months_min": 12,
+      "tenure_months_max": 48,
+      "ticket_inr_min": 30000,
+      "ticket_inr_max": 10000000
+    },
+
+    "eligibility": {
+      "borrower_classes": ["RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL", "PROPRIETOR", "PARTNERSHIP", "LLP", "PVT_LTD"],
+      "entity_types": ["Self-employed individual", "Proprietor", "Private Ltd. Co.", "Partnership Firm", "LLP"],
+      "individual": {
+        "min_age_at_application": 21,
+        "max_age_at_application": 65,
+        "min_annual_income_inr": 300000
+      },
+      "business": {
+        "min_vintage_years": 5,
+        "min_current_business_months": 36,
+        "min_turnover_inr_annual": 4000000,
+        "min_profitable_years": 2
+      },
+      "co_applicant": { "required": false },
+      "geographies": ["India"]
+    },
+
+    "collateral_accepted": [],
+
+    "documents_required": {
+      "kyc": ["Election / Voter's ID card", "Permanent Driving Licence", "Valid Passport", "Aadhaar card"],
+      "income_salaried": [],
+      "income_self_employed": ["Bank statement last 6 months", "ITR + financials last 2 yrs (CA UDIN certified)", "GST returns last 6 months", "Balance Sheet + P&L last 2 yrs (CA-audited)"],
+      "property": [],
+      "business_kyc": ["Proof of continuation (ITR / Trade licence / Establishment / Sales Tax certificate)"],
+      "other": ["Address proof: utility bill / property tax receipt / Aadhaar / Passport"]
+    },
+
+    "claimed_turnaround": {
+      "preapproved_customer_disbursal_seconds": 60
+    },
+
+    "delivery_channels": ["BRANCH", "DIGITAL_SELF_SERVE", "WHATSAPP", "MOBILE_APP"],
+    "assessment_methods": ["ITR_BASED", "BANK_STATEMENT_BASED", "GST_BASED", "FINANCIAL_BASED"],
+
+    "key_features": [
+      "Loan up to ₹75 L (₹1 Cr in select locations) — collateral-free",
+      "Dropline Overdraft Facility ₹1-25 L embedded — interest only on utilised",
+      "Eligibility check in 60 seconds",
+      "Tenure 12-48 months",
+      "Credit Protect Plan included (life coverage + tax benefits)",
+      "Balance transfer of existing BL accepted (technically — StatPro doesn't broker BT for unsecured)",
+      "Profession-tagged sub-products (Doctors / CA / Women / Manufacturers / Traders)"
+    ],
+    "fees_table_raw": "PF: 2% + GST standard across all BL products. Stamp duty as per state (mandatory even on pre-approved).",
+
+    "wc_facility_types": ["OD"],
+    "bundled_insurance_note": "HDFC Bank Credit Protect Plan (life coverage included). Out of StatPro scope — informational only."
+  },
+
+  "variants": [
+    {
+      "code": "FRESH",
+      "label": "XPRESS Business Loan (base)",
+      "source_url": "https://www.hdfc.bank.in/business-loan"
+    },
+    {
+      "code": "DROPLINE_OD",
+      "label": "Dropline Overdraft Facility",
+      "loan_structure_override": { "ticket_inr_min": 100000, "ticket_inr_max": 2500000, "tenure_months_max": 48 }
+    },
+    {
+      "code": "DOCTOR",
+      "label": "Business Loan for Doctors",
+      "audience_tags": ["DOCTOR"]
+    },
+    {
+      "code": "MEDICAL_SHOP",
+      "label": "Business Loan for Medical Shop"
+    },
+    {
+      "code": "WOMEN",
+      "label": "Business Loan for Women",
+      "audience_tags": ["WOMEN"]
+    },
+    {
+      "code": "PROFESSIONAL_CA",
+      "label": "Business Loan for CA",
+      "audience_tags": ["CA"]
+    },
+    {
+      "code": "MANUFACTURER",
+      "label": "Business Loan for Manufacturers"
+    },
+    {
+      "code": "TRADER",
+      "label": "Business Loan for Traders"
+    }
+  ],
+
+  "scheme_overlays": [],
+  "regulatory_disclosures": [],
+
+  "source_map": {
+    "base.pricing":             "https://www.hdfc.bank.in/business-loan",
+    "base.eligibility":         "https://www.hdfc.bank.in/business-loan",
+    "base.loan_structure":      "https://www.hdfc.bank.in/business-loan"
+  },
+
+  "data_quality": {
+    "completeness_pct": 0.80,
+    "fields_missing": ["pricing.foreclosure", "pricing.bounce_charges", "eligibility.individual.min_credit_score"],
+    "needs_retry_for": []
+  }
+}

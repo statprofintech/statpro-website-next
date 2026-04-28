@@ -1,0 +1,30 @@
+{
+  "$schema": "./schema/partner.schema.json",
+  "partners": [
+    {
+      "partner_id": "hdfc-bank",
+      "name": "HDFC Bank",
+      "legal_name": "HDFC Bank Limited (post-merger with HDFC Ltd, July 2023)",
+      "category": "PRIVATE_BANK",
+      "website": "https://www.hdfc.bank.in",
+      "logo_path": null,
+      "rbi_license_status": "Scheduled Commercial Bank",
+      "products_scraped": [
+        "home-loan",
+        "home-loan-balance-transfer",
+        "home-loan-top-up",
+        "plot-loan",
+        "rural-housing-loan",
+        "home-renovation-loan",
+        "home-extension-loan",
+        "loan-against-property",
+        "business-loan",
+        "personal-loan",
+        "pmay-urban-2"
+      ],
+      "scrape_status": "complete",
+      "last_scraped_at": "2026-04-27",
+      "notes": "11 products targeted. 8 fully extracted (Home Loan, BT, Top-up, Plot, Rural, Renovation, Extension, PMAY). 3 weak extractions (LAP, Business Loan, Personal Loan) — hub pages are JS-rendered SPAs; flagged needs_retry for Playwright follow-up."
+    }
+  ]
+}

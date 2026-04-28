@@ -1,0 +1,53 @@
+{
+  "partner_id": "hdfc-bank",
+  "product_code": "personal-loan",
+  "product_family": "PERSONAL_LOAN",
+  "product_name_official": "Instant Personal Loan",
+  "product_summary": "HDFC Bank offers instant personal loans up to ₹50 Lakh starting at 9.99% interest rate for salaried and self-employed individuals.",
+  "source_url": "https://www.hdfc.bank.in/personal-loan",
+  "scraped_at": "2026-04-27",
+  "review_status": "needs_retry",
+  "review_notes": "Hub page returned only headline info; retry against /personal-loan/eligibility, /personal-loan/interest-rate, /personal-loan/documents sub-pages.",
+  "eligibility": {
+    "entity_types": ["Salaried", "Self-Employed"],
+    "min_age": null,
+    "max_age": null,
+    "salaried_min_income_inr_monthly": null,
+    "self_employed_min_income_inr_annual": null,
+    "min_business_vintage_years": null,
+    "min_itr_years": null,
+    "min_credit_score": null,
+    "geographies": []
+  },
+  "pricing": {
+    "roi_min_pct": 9.99,
+    "roi_max_pct": null,
+    "roi_basis": null,
+    "processing_fee_pct_min": null,
+    "processing_fee_pct_max": null,
+    "processing_fee_flat_inr": null,
+    "foreclosure_charges_pct": null,
+    "prepayment_charges_pct": null,
+    "other_charges_notes": null
+  },
+  "loan_structure": {
+    "ltv_pct_max": null,
+    "tenure_months_min": null,
+    "tenure_months_max": null,
+    "ticket_inr_min": null,
+    "ticket_inr_max": 5000000
+  },
+  "collateral_accepted": [],
+  "documents_required": [],
+  "turnaround_days": { "sanction": null, "disbursal": null },
+  "key_features": [
+    "Instant approval capability",
+    "Loan amounts up to ₹50 Lakh",
+    "Starting interest rate of 9.99%"
+  ],
+  "fees_table_raw": null,
+  "data_quality": {
+    "completeness_pct": 0.15,
+    "fields_missing": ["eligibility.*", "pricing.*", "loan_structure.tenure_months_*", "documents_required", "fees_table_raw"]
+  }
+}

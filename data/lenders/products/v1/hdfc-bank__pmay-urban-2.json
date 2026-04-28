@@ -1,0 +1,72 @@
+{
+  "partner_id": "hdfc-bank",
+  "product_code": "pmay-urban-2",
+  "product_family": "PMAY",
+  "product_name_official": "Pradhan Mantri Awas Yojana - Urban 2.0 (PMAY-U 2.0) Interest Subsidy Scheme (ISS)",
+  "product_summary": "Government interest subsidy scheme providing up to ₹1.8 lakh subsidy on home loans for eligible EWS/LIG/MIG families purchasing or constructing affordable houses in urban areas.",
+  "source_url": "https://homeloans.hdfc.bank.in/housing-loans/pradhan-mantri-awas-yojana-urban-2-0",
+  "scraped_at": "2026-04-27",
+  "review_status": "pending",
+  "review_notes": "Subsidy scheme overlay on top of regular HDFC home loan; does not replace base loan terms.",
+  "eligibility": {
+    "entity_types": ["Individual"],
+    "min_age": null,
+    "max_age": null,
+    "salaried_min_income_inr_monthly": null,
+    "self_employed_min_income_inr_annual": null,
+    "min_business_vintage_years": null,
+    "min_itr_years": null,
+    "min_credit_score": null,
+    "geographies": ["All statutory towns per Census 2011", "Subsequently notified towns", "Areas within Notified Planning Areas", "Industrial Development Authority jurisdictions", "Urban Development Authority jurisdictions"]
+  },
+  "pricing": {
+    "roi_min_pct": 4.0,
+    "roi_max_pct": 4.0,
+    "roi_basis": "Interest subsidy of 4% on first ₹8 lakh of loan",
+    "processing_fee_pct_min": null,
+    "processing_fee_pct_max": null,
+    "processing_fee_flat_inr": null,
+    "foreclosure_charges_pct": null,
+    "prepayment_charges_pct": null,
+    "other_charges_notes": "Subsidy calculated as Net Present Value at 8.5% discount rate; maximum ₹1.50 lakh NPV"
+  },
+  "loan_structure": {
+    "ltv_pct_max": null,
+    "tenure_months_min": 60,
+    "tenure_months_max": 144,
+    "ticket_inr_min": null,
+    "ticket_inr_max": 2500000
+  },
+  "collateral_accepted": ["Residential property"],
+  "documents_required": [
+    "Self-certificate/affidavit of income for EWS/LIG/MIG classification",
+    "Undertaking confirming no pucca house ownership in India",
+    "Declaration of not availing housing scheme benefits in last 20 years",
+    "Approved layout plan as per state guidelines",
+    "Property documentation",
+    "Income proof as per HDFC Bank requirements"
+  ],
+  "turnaround_days": { "sanction": null, "disbursal": null },
+  "key_features": [
+    "4% annual interest subsidy on first ₹8 lakh loan amount",
+    "Maximum subsidy benefit of ₹1.80 lakh",
+    "Subsidy released in 5 yearly instalments via Direct Benefit Transfer",
+    "Applicable on loans sanctioned and disbursed from September 1, 2024 onwards",
+    "Valid for 5-year implementation period",
+    "Covers purchase, re-purchase, and construction of houses",
+    "Loan tenure minimum 5 years required",
+    "House ownership must be in female head's name or joint name with spouse",
+    "Applicable to EWS (≤₹3L), LIG (₹3-6L), MIG (₹6-9L) annual income households",
+    "Maximum house value limit ₹35 lakh",
+    "Maximum carpet area 120 sqm",
+    "Subsidy reduces principal loan amount; EMI calculated on reduced amount",
+    "First-time home buyers only",
+    "No previous scheme benefits in last 20 years",
+    "Loan must remain active with >50% principal outstanding at subsidy release"
+  ],
+  "fees_table_raw": null,
+  "data_quality": {
+    "completeness_pct": 0.70,
+    "fields_missing": ["eligibility.min_age", "eligibility.max_age", "loan_structure.ltv_pct_max", "pricing.processing_fee", "turnaround_days"]
+  }
+}

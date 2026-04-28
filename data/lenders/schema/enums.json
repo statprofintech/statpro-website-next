@@ -1,0 +1,133 @@
+{
+  "$comment": "Controlled vocabularies for lender product schema v2. CLOSED enums are exhaustive and validated. OPEN vocabularies provide guidance but accept arbitrary strings (use suggested values for filtering UX). Locked 2026-04-27.",
+
+  "family": {
+    "type": "CLOSED",
+    "values": ["LAP", "LRD", "LAS", "HL", "BL", "PL"],
+    "$comment": "6 families locked. P0 = LAP/LRD/LAS, P1 = HL/BL/PL. Working Capital folded into BL as variant. Project Finance / Education Inst / Social Infra / standalone OD = OUT OF SCOPE."
+  },
+
+  "variant_code": {
+    "type": "OPEN",
+    "$comment": "Open vocabulary — suggested values below cover ~95% of observed cases. New variants allowed; use OTHER + variant_label for one-offs.",
+    "valid_per_family": {
+      "LAP":  ["FRESH", "BT", "TOPUP", "BT_TOPUP", "MICRO", "AFFORDABLE", "MIXED_USE", "SHOP", "SPOORTHI", "ZERO_DAY", "REPORTED_INCOME", "ASSESSED_INCOME", "OD", "DROPLINE_OD", "FOR_INDIVIDUALS", "FOR_COMPANIES", "BY_COLLATERAL_RESIDENTIAL", "BY_COLLATERAL_COMMERCIAL", "BY_COLLATERAL_INDUSTRIAL", "OTHER"],
+      "LRD":  ["FRESH", "BT", "TOPUP", "BT_TOPUP", "RENTAL_SECURITISATION", "OTHER"],
+      "LAS":  ["FRESH", "AGAINST_SHARES", "AGAINST_MUTUAL_FUNDS", "AGAINST_BONDS", "AGAINST_FD", "AGAINST_INSURANCE_POLICY", "OTHER"],
+      "HL":   ["FRESH", "BT", "TOPUP", "BT_TOPUP", "PLOT", "CONSTRUCTION", "RESALE", "RENOVATION", "EXTENSION", "RURAL", "NRI", "PENSIONER", "GRIHA_SUVIDHA", "GRIHA_SUVIDHA_ASHA", "ADVANTAGE_PLUS", "SPOORTHI", "AFFORDABLE", "OTHER"],
+      "BL":   ["FRESH", "FLEXI", "INSTANT", "DROPLINE_OD", "WORKING_CAPITAL", "MACHINERY", "SUPPLY_CHAIN", "LINE_OF_CREDIT", "WOMEN", "SHOPKEEPER", "DOCTOR", "PROFESSIONAL_CA", "PROFESSIONAL_CS", "PROFESSIONAL_CMA", "MEDICAL_SHOP", "MANUFACTURER", "TRADER", "MSME", "PROPRIETOR", "FCCR", "INVENTORY_PURCHASE", "OTHER"],
+      "PL":   ["FRESH", "FLEXI", "INSTANT", "HYBRID", "WEDDING", "MEDICAL", "TRAVEL", "RENOVATION", "DEBT_CONSOLIDATION", "TEACHER", "GOVT_EMPLOYEE", "WOMEN", "DOCTOR", "OTHER"]
+    },
+    "rules": {
+      "$comment": "Schema-level constraints encoded in product.v2.schema.json",
+      "no_bt_for_unsecured": "variant codes BT, TOPUP, BT_TOPUP are PROHIBITED when family ∈ {BL, PL}. StatPro business rule: we do not broker BT for unsecured loans. (Some lenders technically offer it — informational only on lender record, never routed.)",
+      "bl_borrower_class": "family=BL ⇒ borrower_classes must include SE / business owner; never solely RETAIL_INDIVIDUAL_SALARIED.",
+      "pl_borrower_class": "family=PL ⇒ borrower_classes must include RETAIL_INDIVIDUAL_SALARIED; never solely SE."
+    }
+  },
+
+  "loan_facility_type": {
+    "type": "CLOSED",
+    "values": ["TERM_LOAN", "FLEXI_DROPLINE", "FLEXI_HYBRID", "OD_REVOLVING", "BULLET", "TWO_PHASE_INTEREST_THEN_DROPLINE", "CASH_FLOW_LINKED"],
+    "$comment": "Independent of family. A single product can offer multiple facility types (Bajaj LAP offers TERM_LOAN + FLEXI_DROPLINE + FLEXI_HYBRID on the same product page)."
+  },
+
+  "borrower_class": {
+    "type": "CLOSED",
+    "values": ["RETAIL_INDIVIDUAL_SALARIED", "RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL", "PROPRIETOR", "PARTNERSHIP", "LLP", "PVT_LTD", "PUBLIC_LTD", "TRUST", "HUF", "AGRICULTURIST", "NRI", "WHOLESALE_DEVELOPER", "WHOLESALE_CORPORATE"]
+  },
+
+  "collateral_type": {
+    "type": "CLOSED",
+    "values": [
+      "RESIDENTIAL_SELF_OCCUPIED", "RESIDENTIAL_RENTED", "RESIDENTIAL_VACANT",
+      "COMMERCIAL_OFFICE", "COMMERCIAL_SHOP", "COMMERCIAL_RENTED",
+      "INDUSTRIAL_FACTORY", "INDUSTRIAL_WAREHOUSE",
+      "PLOT_RESIDENTIAL", "PLOT_COMMERCIAL",
+      "SPECIAL_HOSPITAL", "SPECIAL_SCHOOL", "SPECIAL_HOTEL", "SPECIAL_BANQUET", "SPECIAL_HOSTEL",
+      "RECEIVABLES_LRD", "INVENTORY_STOCK",
+      "SECURITIES_LISTED_TOP100", "SECURITIES_LISTED_TOP500", "SECURITIES_LISTED_OTHER",
+      "SECURITIES_DEBT_MF", "SECURITIES_EQUITY_MF", "SECURITIES_HYBRID_MF",
+      "SECURITIES_LISTED_BOND", "SECURITIES_ESOP_LISTED", "SECURITIES_ESOP_UNLISTED",
+      "SECURITIES_AIF", "SECURITIES_FD", "SECURITIES_INSURANCE_POLICY",
+      "MACHINERY", "AGRICULTURAL_LAND", "UNDER_CONSTRUCTION", "MIXED_USE", "FCCR_CREDIT_CARD_RECEIVABLES"
+    ]
+  },
+
+  "pricing_state": {
+    "type": "CLOSED",
+    "values": ["RANGE_KNOWN", "FLOOR_ONLY", "PDF_ONLY", "NOT_DISCLOSED"],
+    "$comment": "RANGE_KNOWN: both min & max disclosed. FLOOR_ONLY: 'starting at X%' only. PDF_ONLY: link to rate-card PDF. NOT_DISCLOSED: 'contact lender'."
+  },
+
+  "fee_basis": {
+    "type": "CLOSED",
+    "values": ["PCT_OF_LOAN", "FLAT_INR", "MAX_OF_PCT_AND_FLAT", "MIN_OF_PCT_AND_FLAT", "TIERED_BY_TICKET", "TIERED_BY_EMI_COUNT"]
+  },
+
+  "applies_to_rate_type": {
+    "type": "CLOSED",
+    "values": ["FLOATING_ONLY", "FIXED_ONLY", "BOTH", "NA"]
+  },
+
+  "delivery_channel": {
+    "type": "CLOSED",
+    "values": ["BRANCH", "DIGITAL_SELF_SERVE", "DOORSTEP", "DSA", "RM_LED", "WHATSAPP", "MOBILE_APP"]
+  },
+
+  "assessment_method": {
+    "type": "CLOSED",
+    "values": ["ITR_BASED", "BANK_STATEMENT_BASED", "GST_BASED", "TURNOVER_BASED", "FINANCIAL_BASED", "CASH_FLOW_BASED", "PROJECTED_REVENUE_BASED", "INDUSTRY_MARGIN_AWARE", "STATEMENT_BASED"],
+    "$comment": "Multi-select on a product (Unity SFB uses 4 of these together)."
+  },
+
+  "regulatory_disclosure": {
+    "type": "OPEN",
+    "values": ["LEI_REQUIREMENT", "FLOATING_RATE_RESET_OPTIONS", "PROPERTY_DOC_RETRIEVAL_TIMELINE", "CKYC", "RBI_OMBUDSMAN", "CGTMSE_REGISTRATION", "PMAY_OVERLAY", "STAND_UP_INDIA"]
+  },
+
+  "scheme_overlay": {
+    "type": "OPEN",
+    "$comment": "Cross-family scheme/program tags (e.g., L&T Spoorthi spans LAP+HL). Open vocab.",
+    "examples": ["WOMEN_SPOORTHI", "WOMEN_PF_DISCOUNT", "SENIOR_CITIZEN_DISCOUNT", "AGRICULTURIST", "FIRST_TIME_BORROWER", "AFFORDABLE", "RURAL"]
+  },
+
+  "depository": {
+    "type": "CLOSED",
+    "values": ["NSDL", "CDSL"],
+    "$comment": "LAS-specific. JioCredit supports NSDL only."
+  },
+
+  "demat_account_type": {
+    "type": "CLOSED",
+    "values": ["INDIVIDUAL", "JOINT", "CORPORATE", "HUF", "NRI"],
+    "$comment": "LAS-specific."
+  },
+
+  "lessee_type": {
+    "type": "CLOSED",
+    "values": ["BANK", "PSU", "MNC", "LISTED_CORP", "GOVT", "SCHEDULED_INSTITUTION", "COMPANIES_ACT_REGISTERED", "OTHER"],
+    "$comment": "LRD-specific. Bajaj requires Companies Act 1956 registered lessee."
+  },
+
+  "eligible_employer_category": {
+    "type": "OPEN",
+    "values": ["MNC", "PUBLIC_LTD", "LARGE_PVT", "MID_PVT", "GOVT_CENTRAL", "GOVT_STATE", "PSU"],
+    "$comment": "Tata LAP filters by employer quality. Salaried-eligibility filter."
+  },
+
+  "target_profession": {
+    "type": "OPEN",
+    "values": ["DOCTOR", "MEDICAL_SHOP_OWNER", "CA", "CS", "CMA", "ARCHITECT", "ENGINEER", "LAWYER", "TEACHER", "GOVT_EMPLOYEE", "PROFESSIONAL_OTHER"]
+  },
+
+  "partner_category": {
+    "type": "CLOSED",
+    "values": ["PRIVATE_BANK", "PSU_BANK", "FOREIGN_BANK", "SMALL_FINANCE_BANK", "HOUSING_FINANCE", "NBFC_LARGE", "NBFC_SME", "NBFC_LAS", "NBFC_DSA"]
+  },
+
+  "review_status": {
+    "type": "CLOSED",
+    "values": ["pending", "approved", "needs_retry", "rejected", "reference_only"]
+  }
+}

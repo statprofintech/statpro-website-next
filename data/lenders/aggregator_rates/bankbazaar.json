@@ -1,0 +1,95 @@
+{
+  "$comment": "Aggregator-sourced reference rates from BankBazaar. Use as fallback/sanity-check only. NEVER as primary source on customer-facing pages without partner-direct verification. Each record carries provenance: 'BANKBAZAAR_AGGREGATOR'. Rates here often reflect 'starting from' floors and may lag partner-direct disclosures by 1-3 months.",
+  "$non_partners_in_table": "The following lenders appear in BankBazaar's tables but are explicit NON-partners (per user 2026-04-27): SBI, Bank of Baroda, Yes Bank, IDFC First, IndusInd, Federal Bank, DBS, IIFL, Edelweiss, HDBFS, PNB Housing Finance, Sundaram Home Finance. These rows are kept as market context only — they must NOT be exposed on the partner grid, must NOT receive lead routing, and must NOT be quoted to customers as if we can place a deal with them. Use only for: comparator calculator floors, blog content benchmarking, sales-team competitive intelligence.",
+  "source_url_base": "https://www.bankbazaar.com",
+  "scraped_at": "2026-04-27",
+  "review_status": "reference_only",
+
+  "home_loan": {
+    "source_url": "https://www.bankbazaar.com/home-loan.html",
+    "rows": [
+      { "lender_name": "SBI",                "partner_id_match": null,            "roi_min_pct": 7.25, "roi_max_pct": 10.50, "processing_fee_text": "0.35% (Min ₹3,000 + GST, Max ₹12,000 + GST)", "max_tenure_years": 30, "max_loan_inr": null,         "note": "At bank's discretion" },
+      { "lender_name": "HDFC",               "partner_id_match": "hdfc-bank",     "roi_min_pct": 7.75, "roi_max_pct": 13.20, "processing_fee_text": "Up to 0.50% or min ₹4,000 + GST", "max_tenure_years": 30, "max_loan_inr": null, "note": "Matches partner-direct" },
+      { "lender_name": "Union Bank",         "partner_id_match": null,            "roi_min_pct": 7.15, "roi_max_pct": 11.40, "processing_fee_text": "0.50% up to ₹15,000 + GST", "max_tenure_years": 30, "max_loan_inr": null,            "note": "Floating/Fixed" },
+      { "lender_name": "PNB",                "partner_id_match": null,            "roi_min_pct": 7.20, "roi_max_pct": null,  "processing_fee_text": "0.35% (Min ₹2,500, Max ₹15,000)", "max_tenure_years": 30, "max_loan_inr": 10000000, "note": "onwards" },
+      { "lender_name": "PNB Housing",        "partner_id_match": null,            "roi_min_pct": 7.75, "roi_max_pct": 14.75, "processing_fee_text": "Contact bank", "max_tenure_years": 30, "max_loan_inr": null, "note": "Floating/Fixed" },
+      { "lender_name": "LIC HFL",            "partner_id_match": "lic-housing",   "roi_min_pct": 7.15, "roi_max_pct": null,  "processing_fee_text": "0.25% (Max ₹15,000 + tax)", "max_tenure_years": 30, "max_loan_inr": null, "note": "Backfills LIC's gap (no rate on partner site)" },
+      { "lender_name": "Axis Bank",          "partner_id_match": null,            "roi_min_pct": 8.00, "roi_max_pct": 14.00, "processing_fee_text": "Up to 1% or ₹10,000 + GST", "max_tenure_years": 30, "max_loan_inr": 1000000000, "note": "Floating/Fixed" },
+      { "lender_name": "Aditya Birla Capital","partner_id_match": "aditya-birla",  "roi_min_pct": null, "roi_max_pct": null,  "processing_fee_text": "Contact NBFC", "max_tenure_years": null, "max_loan_inr": null, "note": "BB has no rate either" },
+      { "lender_name": "Karnataka Bank",     "partner_id_match": null,            "roi_min_pct": 7.31, "roi_max_pct": 11.69, "processing_fee_text": "0.25% (Nil select)", "max_tenure_years": 30, "max_loan_inr": 500000000, "note": null },
+      { "lender_name": "IDFC Bank",          "partner_id_match": null,            "roi_min_pct": 8.85, "roi_max_pct": null,  "processing_fee_text": "Up to 3%", "max_tenure_years": 30, "max_loan_inr": null, "note": "As per property value" },
+      { "lender_name": "Bank of Baroda",     "partner_id_match": null,            "roi_min_pct": 7.20, "roi_max_pct": 8.90,  "processing_fee_text": "Min ₹8,500, Max ₹25,000", "max_tenure_years": 30, "max_loan_inr": 1000000000, "note": "Floating/Fixed" },
+      { "lender_name": "Canara Bank",        "partner_id_match": null,            "roi_min_pct": 7.15, "roi_max_pct": 10.00, "processing_fee_text": "0.50% (Min ₹1,500, Max ₹10,000) + GST", "max_tenure_years": 30, "max_loan_inr": null, "note": "No upper limit" },
+      { "lender_name": "Kotak Mahindra Bank","partner_id_match": "kotak-bank",    "roi_min_pct": 7.70, "roi_max_pct": 12.00, "processing_fee_text": "Up to 2% + GST", "max_tenure_years": 25, "max_loan_inr": 4000000000, "note": "Matches partner-direct floor" },
+      { "lender_name": "DBS Bank",           "partner_id_match": null,            "roi_min_pct": 8.70, "roi_max_pct": null,  "processing_fee_text": "Up to ₹10,000", "max_tenure_years": 25, "max_loan_inr": 500000000, "note": null },
+      { "lender_name": "Sundaram Home Finance","partner_id_match": null,          "roi_min_pct": null, "roi_max_pct": null,  "processing_fee_text": "Contact bank", "max_tenure_years": null, "max_loan_inr": null, "note": null },
+      { "lender_name": "Bank of Maharashtra","partner_id_match": null,            "roi_min_pct": 7.10, "roi_max_pct": null,  "processing_fee_text": "Up to 0.25% (Max ₹25,000)", "max_tenure_years": 30, "max_loan_inr": null, "note": "onwards — current floor leader" },
+      { "lender_name": "Federal Bank",       "partner_id_match": null,            "roi_min_pct": 7.30, "roi_max_pct": null,  "processing_fee_text": "0.50% (Min ₹10,000, Max ₹2L)", "max_tenure_years": 30, "max_loan_inr": 1500000000, "note": "Floating onwards" }
+    ]
+  },
+
+  "personal_loan": {
+    "source_url": "https://www.bankbazaar.com/personal-loan.html",
+    "rows": [
+      { "lender_name": "SBI",                "partner_id_match": null,            "roi_min_pct": 10.00, "roi_max_pct": 15.00, "max_loan_inr": 3500000, "note": "2026 reference" },
+      { "lender_name": "HDFC",               "partner_id_match": "hdfc-bank",     "roi_min_pct": 9.99,  "roi_max_pct": null,  "max_loan_inr": 5000000, "note": "Matches partner-direct" },
+      { "lender_name": "Kotak Mahindra",     "partner_id_match": "kotak-bank",    "roi_min_pct": 10.99, "roi_max_pct": null,  "max_loan_inr": 100000000, "note": "Ticket cap looks high — verify" },
+      { "lender_name": "Yes Bank",           "partner_id_match": null,            "roi_min_pct": 10.85, "roi_max_pct": 21.00, "max_loan_inr": 4000000, "note": null },
+      { "lender_name": "Union Bank of India","partner_id_match": null,            "roi_min_pct": 8.90,  "roi_max_pct": null,  "max_loan_inr": 1500000, "note": null },
+      { "lender_name": "Axis Bank",          "partner_id_match": null,            "roi_min_pct": 9.99,  "roi_max_pct": 22.00, "max_loan_inr": 4000000, "note": null },
+      { "lender_name": "Tata Capital",       "partner_id_match": "tata-capital",  "roi_min_pct": 10.99, "roi_max_pct": null,  "max_loan_inr": 3500000, "note": "Matches partner-direct" },
+      { "lender_name": "Standard Chartered", "partner_id_match": null,            "roi_min_pct": 11.49, "roi_max_pct": null,  "max_loan_inr": null,    "note": null },
+      { "lender_name": "IDFC First",         "partner_id_match": null,            "roi_min_pct": 9.99,  "roi_max_pct": null,  "max_loan_inr": 1500000, "note": null },
+      { "lender_name": "IIFL",               "partner_id_match": null,            "roi_min_pct": 12.75, "roi_max_pct": 44.00, "max_loan_inr": 500000,  "note": "Sub-prime / digital BNPL territory at top end" },
+      { "lender_name": "HDBFS",              "partner_id_match": null,            "roi_min_pct": 19.00, "roi_max_pct": 19.05, "max_loan_inr": 2000000, "note": "HDB Financial Services" },
+      { "lender_name": "PNB",                "partner_id_match": null,            "roi_min_pct": 10.25, "roi_max_pct": 11.25, "max_loan_inr": null,    "note": null },
+      { "lender_name": "IndusInd Bank",      "partner_id_match": null,            "roi_min_pct": 10.49, "roi_max_pct": null,  "max_loan_inr": 500000,  "note": null },
+      { "lender_name": "Bank of Maharashtra","partner_id_match": null,            "roi_min_pct": 8.75,  "roi_max_pct": 8.75,  "max_loan_inr": null,    "note": "PSU floor leader" },
+      { "lender_name": "IDBI Bank",          "partner_id_match": null,            "roi_min_pct": 11.00, "roi_max_pct": 15.50, "max_loan_inr": null,    "note": null }
+    ]
+  },
+
+  "loan_against_property": {
+    "source_url": "https://www.bankbazaar.com/home-loan/loan-against-property.html",
+    "as_of": "October 2025",
+    "rows": [
+      { "lender_name": "State Bank of India",        "partner_id_match": null,            "roi_min_pct": 10.20, "roi_max_pct": null,  "processing_fee_text": "1% capped ₹50,000 + tax",       "max_loan_inr": 750000000,  "note": null },
+      { "lender_name": "HDFC Bank",                  "partner_id_match": "hdfc-bank",     "roi_min_pct": 8.55,  "roi_max_pct": 13.00, "processing_fee_text": "Up to 1% min ₹7,500",          "max_loan_inr": null,       "ltv_pct_max": 60, "note": "Backfills HDFC LAP gap (partner page was JS-blocked)" },
+      { "lender_name": "IDFC First",                 "partner_id_match": null,            "roi_min_pct": 9.50,  "roi_max_pct": null,  "processing_fee_text": "Up to 3%",                     "max_loan_inr": 700000000,  "note": null },
+      { "lender_name": "Tata Capital",               "partner_id_match": "tata-capital",  "roi_min_pct": 9.00,  "roi_max_pct": null,  "processing_fee_text": "Up to 3%",                     "max_loan_inr": 500000000,  "note": "Matches partner-direct" },
+      { "lender_name": "Axis Bank",                  "partner_id_match": null,            "roi_min_pct": 9.25,  "roi_max_pct": null,  "processing_fee_text": "1% or ₹10,000 (higher)",       "max_loan_inr": 500000000,  "note": null },
+      { "lender_name": "Kotak Mahindra Bank",        "partner_id_match": "kotak-bank",    "roi_min_pct": 9.50,  "roi_max_pct": null,  "processing_fee_text": "Max 1% + GST",                 "max_loan_inr": 500000000,  "note": "Backfills Kotak LAP rate" },
+      { "lender_name": "IIFL",                       "partner_id_match": null,            "roi_min_pct": null,  "roi_max_pct": null,  "processing_fee_text": "Contact lender",               "max_loan_inr": 1000000000, "note": null },
+      { "lender_name": "Edelweiss Financial",        "partner_id_match": null,            "roi_min_pct": null,  "roi_max_pct": null,  "processing_fee_text": "1%",                           "max_loan_inr": 2500000000, "note": "Largest LAP cap on table" },
+      { "lender_name": "Bank of India",              "partner_id_match": null,            "roi_min_pct": 9.10,  "roi_max_pct": null,  "max_loan_inr": 750000000, "note": null },
+      { "lender_name": "L&T Housing Finance",        "partner_id_match": "lt-finance",    "roi_min_pct": 8.70,  "roi_max_pct": null,  "max_loan_inr": null,      "note": "Lower than partner-direct (9.00) — likely L&T HF vs L&T Finance distinction" },
+      { "lender_name": "Union Bank of India",        "partner_id_match": null,            "roi_min_pct": 9.55,  "roi_max_pct": null,  "max_loan_inr": 1000000000, "note": null },
+      { "lender_name": "Indian Bank",                "partner_id_match": null,            "roi_min_pct": null,  "roi_max_pct": null,  "max_loan_inr": null,       "note": null },
+      { "lender_name": "LIC Housing Finance",        "partner_id_match": "lic-housing",   "roi_min_pct": 9.70,  "roi_max_pct": null,  "max_loan_inr": 750000000,  "note": "Backfills LIC LAP rate" },
+      { "lender_name": "Bank of Maharashtra",        "partner_id_match": null,            "roi_min_pct": 7.35,  "roi_max_pct": null,  "max_loan_inr": 1000000000, "note": "PSU floor leader (notably below market)" },
+      { "lender_name": "PNB Housing Finance",        "partner_id_match": null,            "roi_min_pct": 9.00,  "roi_max_pct": null,  "max_loan_inr": 500000000,  "note": null },
+      { "lender_name": "ICICI Bank",                 "partner_id_match": null,            "roi_min_pct": 11.10, "roi_max_pct": null,  "max_loan_inr": 500000000,  "note": "High vs other private banks — verify" },
+      { "lender_name": "Bajaj Housing Finance",      "partner_id_match": "bajaj-finserv", "roi_min_pct": 8.99,  "roi_max_pct": null,  "max_loan_inr": 500000000,  "note": "Backfills Bajaj — partner-direct is fully blocked" },
+      { "lender_name": "UCO Bank",                   "partner_id_match": null,            "roi_min_pct": 9.30,  "roi_max_pct": null,  "max_loan_inr": 500000000,  "note": null },
+      { "lender_name": "Bank of Baroda",             "partner_id_match": null,            "roi_min_pct": 9.15,  "roi_max_pct": null,  "max_loan_inr": 2500000000, "note": null },
+      { "lender_name": "Federal Bank",               "partner_id_match": null,            "roi_min_pct": 9.50,  "roi_max_pct": null,  "max_loan_inr": 500000000,  "note": null }
+    ]
+  },
+
+  "newly_discovered_lenders_not_yet_in_panel": [
+    "State Bank of India (SBI)", "Punjab National Bank (PNB)", "Bank of Baroda (BoB)",
+    "Canara Bank", "Union Bank of India", "Bank of India (BoI)", "Bank of Maharashtra (BoM)",
+    "UCO Bank", "Indian Bank", "IDBI Bank",
+    "ICICI Bank", "Yes Bank", "IndusInd Bank", "IDFC First Bank", "Federal Bank",
+    "DBS Bank", "Standard Chartered", "Karnataka Bank", "RBL Bank",
+    "PNB Housing Finance", "Bajaj Housing Finance", "Sundaram Home Finance", "L&T Housing Finance",
+    "IIFL", "Edelweiss Financial", "HDB Financial Services (HDBFS)"
+  ],
+
+  "schema_implications": {
+    "provenance_required": "Aggregator data must be tagged provenance='BANKBAZAAR_AGGREGATOR' and never displayed to customers without partner-direct verification or a 'reference rate' disclaimer.",
+    "rate_floor_only": "Most BB rates are 'starting from' floors. Use as min_pct only; do not infer max_pct from absence.",
+    "as_of_date_critical": "BB updates monthly at best. Stamp every record with as_of and prefer partner-direct when last_scraped is more recent.",
+    "name_normalisation_needed": "BB uses inconsistent names: 'HDFC' vs 'HDFC Bank', 'L&T Housing Finance' vs 'L&T Finance', 'Aditya Birla Capital' vs 'Aditya Birla Finance'. Need a partner alias mapping."
+  }
+}

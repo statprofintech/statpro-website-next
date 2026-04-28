@@ -1,0 +1,371 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://statproindia.com/schema/lender-product.v2.json",
+  "title": "Lender Product (v2)",
+  "description": "One file per (partner_id, family). Variants are first-class — each can override pricing/structure/eligibility. Locked 2026-04-27. See enums.json for controlled vocabularies.",
+  "type": "object",
+  "required": ["product_id", "partner_id", "family", "product_name_official", "scraped_at", "review_status", "base", "data_quality"],
+  "additionalProperties": false,
+
+  "properties": {
+    "$schema":              { "type": "string" },
+    "product_id":           { "type": "string", "pattern": "^[a-z0-9-]+/[a-z0-9-]+$", "description": "{partner_id}/{family-slug} — e.g. 'jiocredit/las'" },
+    "partner_id":           { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "family":               { "$ref": "#/$defs/family" },
+    "product_name_official":{ "type": "string" },
+    "product_summary":      { "type": ["string", "null"] },
+    "scraped_at":           { "type": "string", "format": "date" },
+    "review_status":        { "enum": ["pending", "approved", "needs_retry", "rejected", "reference_only"] },
+    "review_notes":         { "type": ["string", "null"] },
+    "base":                 { "$ref": "#/$defs/productCore" },
+    "variants":             { "type": "array", "items": { "$ref": "#/$defs/variant" } },
+    "scheme_overlays":      { "type": "array", "items": { "type": "string" }, "description": "Cross-family scheme tags (Spoorthi, women-PF-discount, etc.)" },
+    "regulatory_disclosures":{"type": "array", "items": { "type": "string" } },
+    "source_map":           { "type": "object", "additionalProperties": { "type": "string", "format": "uri" } },
+    "data_quality": {
+      "type": "object",
+      "required": ["completeness_pct"],
+      "properties": {
+        "completeness_pct": { "type": "number", "minimum": 0, "maximum": 1 },
+        "fields_missing":   { "type": "array", "items": { "type": "string" } },
+        "needs_retry_for":  { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "allOf": [
+    {
+      "$comment": "BL/PL must NOT have BT/TOPUP/BT_TOPUP variants. StatPro business rule.",
+      "if":   { "properties": { "family": { "enum": ["BL", "PL"] } } },
+      "then": { "properties": { "variants": { "items": { "properties": { "code": { "not": { "enum": ["BT", "TOPUP", "BT_TOPUP"] } } } } } } }
+    },
+    {
+      "$comment": "LAS uses overdraft/revolving model — base.repayment_facility_types must include OD_REVOLVING.",
+      "if":   { "properties": { "family": { "const": "LAS" } } },
+      "then": { "properties": { "base": { "required": ["las_terms"] } } }
+    },
+    {
+      "$comment": "LRD must declare lrd_terms.",
+      "if":   { "properties": { "family": { "const": "LRD" } } },
+      "then": { "properties": { "base": { "required": ["lrd_terms"] } } }
+    }
+  ],
+
+  "$defs": {
+
+    "family": { "enum": ["LAP", "LRD", "LAS", "HL", "BL", "PL"] },
+
+    "productCore": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "borrower_classes":          { "type": "array", "items": { "type": "string" } },
+        "loan_facility_types":       { "type": "array", "items": { "$ref": "#/$defs/loanFacility" }, "description": "Bajaj LAP offers all of TERM_LOAN, FLEXI_DROPLINE, FLEXI_HYBRID on the same product" },
+        "pricing":                   { "$ref": "#/$defs/pricing" },
+        "loan_structure":            { "$ref": "#/$defs/loanStructure" },
+        "eligibility":               { "$ref": "#/$defs/eligibility" },
+        "property_eligibility":      { "$ref": "#/$defs/propertyEligibility" },
+        "collateral_accepted":       { "type": "array", "items": { "$ref": "#/$defs/collateralEntry" } },
+        "documents_required":        { "$ref": "#/$defs/documents" },
+        "claimed_turnaround":        { "$ref": "#/$defs/turnaround" },
+        "delivery_channels":         { "type": "array", "items": { "type": "string" } },
+        "assessment_methods":        { "type": "array", "items": { "type": "string" } },
+        "key_features":              { "type": "array", "items": { "type": "string" } },
+        "fees_table_raw":            { "type": ["string", "null"] },
+
+        "lrd_terms":                 { "$ref": "#/$defs/lrdTerms" },
+        "las_terms":                 { "$ref": "#/$defs/lasTerms" },
+        "wc_facility_types":         { "type": "array", "items": { "type": "string" }, "description": "BL-only: CC/OD/WCDL/Export-Credit/etc. when product is working-capital-flavoured" },
+
+        "bundled_insurance_note":    { "type": ["string", "null"], "description": "Informational only. StatPro does NOT sell insurance — never marketed." }
+      }
+    },
+
+    "loanFacility": { "enum": ["TERM_LOAN", "FLEXI_DROPLINE", "FLEXI_HYBRID", "OD_REVOLVING", "BULLET", "TWO_PHASE_INTEREST_THEN_DROPLINE", "CASH_FLOW_LINKED"] },
+
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "roi":              { "$ref": "#/$defs/rateBlock" },
+        "by_employment":    {
+          "type": "object",
+          "$comment": "Optional overlay when ROI varies by salaried vs self-employed vs profession on the same product page.",
+          "additionalProperties": { "$ref": "#/$defs/rateBlock" }
+        },
+        "processing_fee":   { "$ref": "#/$defs/feeBlock" },
+        "documentation_charge_inr":  { "type": ["integer", "null"] },
+        "login_fee_inr":             { "type": ["integer", "null"] },
+        "mortgage_origination_fee_inr_per_property": { "type": ["integer", "null"] },
+        "flexi_facility_charge":     { "$ref": "#/$defs/feeBlock", "description": "Bajaj-style upfront fee for flexi loan variants" },
+        "amc": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "pct_of_limit":     { "type": ["number", "null"] },
+            "fixed_inr":        { "type": ["integer", "null"] },
+            "basis":            { "enum": ["PCT_OF_LIMIT", "FIXED_INR", "MAX_OF_PCT_AND_FIXED", "MIN_OF_PCT_AND_FIXED"], "default": "PCT_OF_LIMIT" },
+            "applies_to_facility_types": { "type": "array", "items": { "$ref": "#/$defs/loanFacility" } },
+            "starts_after_months": { "type": ["integer", "null"] }
+          }
+        },
+        "foreclosure":      { "$ref": "#/$defs/penaltyFee" },
+        "prepayment":       { "$ref": "#/$defs/penaltyFee" },
+        "default_interest_pct_pa": { "type": ["number", "null"] },
+        "bounce_charges": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "flat_inr":  { "type": ["integer", "null"] },
+            "bands":     { "type": ["array", "null"], "items": {
+              "type": "object",
+              "required": ["charge_inr"],
+              "properties": {
+                "ticket_inr_min": { "type": ["integer", "null"] },
+                "ticket_inr_max": { "type": ["integer", "null"] },
+                "charge_inr":     { "type": "integer" }
+              }
+            } }
+          }
+        },
+        "mandate_rejection_inr":  { "type": ["integer", "null"] },
+        "cancellation_charge":    { "$ref": "#/$defs/feeBlock" },
+        "other_charges_notes":    { "type": ["string", "null"] }
+      }
+    },
+
+    "rateBlock": {
+      "type": "object",
+      "required": ["state"],
+      "additionalProperties": false,
+      "properties": {
+        "state":          { "enum": ["RANGE_KNOWN", "FLOOR_ONLY", "PDF_ONLY", "NOT_DISCLOSED"] },
+        "min_pct":        { "type": ["number", "null"] },
+        "max_pct":        { "type": ["number", "null"] },
+        "basis":          { "type": ["string", "null"], "description": "e.g. 'Repo + spread', 'JFL RPL', 'BFRR', 'Fixed'" },
+        "benchmark":      { "type": ["string", "null"], "description": "RMLR, RCLR, LTRR, STRR, REPO, MCLR, PRR, BFRR, JFL_RPL, INTERNAL" },
+        "is_risk_priced": { "type": ["boolean", "null"], "description": "True when range is wide and reflects credit-band pricing (AB Secured BL 8-25%)" },
+        "pdf_url":        { "type": ["string", "null"], "format": "uri" },
+        "as_of_date":     { "type": ["string", "null"], "format": "date" }
+      }
+    },
+
+    "feeBlock": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "basis":         { "enum": ["PCT_OF_LOAN", "FLAT_INR", "MAX_OF_PCT_AND_FLAT", "MIN_OF_PCT_AND_FLAT", "TIERED_BY_TICKET", "TIERED_BY_EMI_COUNT"] },
+        "pct_min":       { "type": ["number", "null"] },
+        "pct_max":       { "type": ["number", "null"] },
+        "flat_inr_min":  { "type": ["integer", "null"] },
+        "flat_inr_max":  { "type": ["integer", "null"] },
+        "bands":         { "type": ["array", "null"], "items": { "type": "object" } },
+        "notes":         { "type": ["string", "null"] }
+      }
+    },
+
+    "penaltyFee": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "applies_to":     { "enum": ["FLOATING_ONLY", "FIXED_ONLY", "BOTH", "NA"] },
+        "applies_to_borrower_types": { "type": "array", "items": { "type": "string" } },
+        "pct":            { "type": ["number", "null"] },
+        "tiers": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "required": ["pct"],
+            "properties": {
+              "emi_count_min":  { "type": ["integer", "null"] },
+              "emi_count_max":  { "type": ["integer", "null"] },
+              "applies_after_months": { "type": ["integer", "null"] },
+              "pct":            { "type": "number" }
+            }
+          }
+        },
+        "exempt_for_self_funded": { "type": ["boolean", "null"] },
+        "notes":                  { "type": ["string", "null"] }
+      }
+    },
+
+    "loanStructure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ltv_pct_max":      { "type": ["number", "null"] },
+        "tenure_months_min":{ "type": ["integer", "null"] },
+        "tenure_months_max":{ "type": ["integer", "null"] },
+        "ticket_inr_min":   { "type": ["integer", "null"] },
+        "ticket_inr_max":   { "type": ["integer", "null"] }
+      }
+    },
+
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "borrower_classes": { "type": "array", "items": { "type": "string" } },
+        "entity_types":     { "type": "array", "items": { "type": "string" } },
+        "excluded_entity_types":      { "type": "array", "items": { "type": "string" }, "description": "Lendingkart explicitly excludes Trusts/NGOs" },
+        "individual": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "min_age_at_application":             { "type": ["integer", "null"] },
+            "max_age_at_application":             { "type": ["integer", "null"] },
+            "max_age_at_maturity_salaried":       { "type": ["integer", "null"] },
+            "max_age_at_maturity_self_employed":  { "type": ["integer", "null"] },
+            "co_applicant_age_extension_via_legal_heir_max": { "type": ["integer", "null"], "description": "Bajaj LAP: 95 via 2nd-gen co-applicant" },
+            "min_monthly_income_salaried_inr":    { "type": ["integer", "null"] },
+            "min_annual_income_inr":              { "type": ["integer", "null"] },
+            "min_monthly_bank_balance_inr":       { "type": ["integer", "null"] },
+            "min_credit_score":                   { "type": ["integer", "null"] },
+            "min_total_work_experience_months":   { "type": ["integer", "null"] },
+            "min_current_employer_tenure_months": { "type": ["integer", "null"] },
+            "eligible_employer_categories":       { "type": "array", "items": { "type": "string" } },
+            "target_professions":                 { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "business": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "min_vintage_years":           { "type": ["integer", "null"] },
+            "min_current_business_months": { "type": ["integer", "null"] },
+            "min_turnover_inr_annual":     { "type": ["integer", "null"] },
+            "min_profitable_years":        { "type": ["integer", "null"] },
+            "min_itr_years":               { "type": ["integer", "null"] }
+          }
+        },
+        "co_applicant": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "required":                       { "type": ["boolean", "null"] },
+            "minimum_count":                  { "type": ["integer", "null"] },
+            "woman_required_conditional":     { "type": ["boolean", "null"] },
+            "eligible_relations":             { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "geographies":      { "type": "array", "items": { "type": "string" } },
+        "first_time_borrower_accepted": { "type": ["boolean", "null"] }
+      }
+    },
+
+    "propertyEligibility": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "max_property_age_years":           { "type": ["integer", "null"] },
+        "approved_locations":               { "type": "array", "items": { "type": "string" } },
+        "min_carpet_area_sqm":              { "type": ["integer", "null"] },
+        "max_carpet_area_sqm":              { "type": ["integer", "null"] },
+        "regulatory_approvals_required":    { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "collateralEntry": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type":               { "type": "string" },
+        "preferred":          { "type": ["boolean", "null"] },
+        "ltv_override_pct":   { "type": ["number", "null"] },
+        "tenure_months_max_override": { "type": ["integer", "null"] }
+      }
+    },
+
+    "documents": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "kyc":                  { "type": "array", "items": { "type": "string" } },
+        "income_salaried":      { "type": "array", "items": { "type": "string" } },
+        "income_self_employed": { "type": "array", "items": { "type": "string" } },
+        "property":             { "type": "array", "items": { "type": "string" } },
+        "business_kyc":         { "type": "array", "items": { "type": "string" } },
+        "other":                { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "turnaround": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "sanction_days_normal":                { "type": ["integer", "null"] },
+        "sanction_days_with_field_inspection": { "type": ["integer", "null"] },
+        "disbursal_days_max":                  { "type": ["integer", "null"] },
+        "preapproved_customer_disbursal_seconds": { "type": ["integer", "null"] }
+      }
+    },
+
+    "lrdTerms": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min_lease_residual_months":      { "type": ["integer", "null"] },
+        "min_lease_total_months":         { "type": ["integer", "null"] },
+        "eligible_lessee_types":          { "type": "array", "items": { "type": "string" } },
+        "rental_assignment_required":     { "type": ["boolean", "null"] },
+        "escrow_required":                { "type": ["boolean", "null"] },
+        "min_rental_inr_monthly":         { "type": ["integer", "null"] },
+        "ltv_basis":                      { "enum": ["NPV_OF_RENTALS", "PCT_OF_PROPERTY", "MIN_OF_NPV_AND_PROPERTY"] },
+        "ltv_pct_npv_max":                { "type": ["number", "null"] },
+        "ltv_pct_property_max":           { "type": ["number", "null"] },
+        "discount_rate_pct":              { "type": ["number", "null"] }
+      }
+    },
+
+    "lasTerms": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "approved_securities_list_url":   { "type": ["string", "null"], "format": "uri" },
+        "approved_securities_summary":    { "type": ["string", "null"] },
+        "ltv_by_security_class": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["class", "ltv_pct_max"],
+            "properties": {
+              "class":         { "type": "string", "description": "From collateral_type SECURITIES_* values" },
+              "ltv_pct_max":   { "type": "number" }
+            }
+          }
+        },
+        "depositories_supported":         { "type": "array", "items": { "enum": ["NSDL", "CDSL"] } },
+        "demat_account_types_supported":  { "type": "array", "items": { "enum": ["INDIVIDUAL", "JOINT", "CORPORATE", "HUF", "NRI"] } },
+        "margin_call_threshold_pct":      { "type": ["number", "null"] },
+        "margin_call_remediation":        { "type": "array", "items": { "enum": ["PLEDGE_MORE", "REPAY_PARTIAL", "EITHER"] } },
+        "renewal_frequency_months":       { "type": ["integer", "null"] },
+        "interest_calculation":           { "enum": ["DAILY_ON_UTILISED", "MONTHLY", "FIXED_ON_LIMIT"] },
+        "drawdown_model":                 { "enum": ["OVERDRAFT_REVOLVING", "FIXED_DRAWDOWN", "TRANCHE_BASED"] },
+        "min_drawdown_inr":               { "type": ["integer", "null"] },
+        "demat_pledge_or_lien":           { "enum": ["PLEDGE", "LIEN_MARK"] }
+      }
+    },
+
+    "variant": {
+      "type": "object",
+      "required": ["code"],
+      "additionalProperties": false,
+      "properties": {
+        "code":                       { "type": "string", "description": "From enums.json variant_code.valid_per_family[family]; OTHER allowed with variant_label" },
+        "label":                      { "type": ["string", "null"] },
+        "variant_label_freetext":     { "type": ["string", "null"], "description": "Required when code = OTHER" },
+        "branded_scheme_name":        { "type": ["string", "null"], "description": "Griha Suvidha, Spoorthi, Advantage Plus, etc." },
+        "audience_tags":              { "type": "array", "items": { "type": "string" } },
+        "source_url":                 { "type": ["string", "null"], "format": "uri" },
+        "min_existing_loan_months":   { "type": ["integer", "null"], "description": "BT/BT_TOPUP only" },
+        "topup_max_inr":              { "type": ["integer", "null"], "description": "TOPUP/BT_TOPUP only" },
+        "pricing_override":           { "$ref": "#/$defs/pricing" },
+        "loan_structure_override":    { "$ref": "#/$defs/loanStructure" },
+        "eligibility_override":       { "$ref": "#/$defs/eligibility" },
+        "documents_override":         { "$ref": "#/$defs/documents" }
+      }
+    }
+  }
+}

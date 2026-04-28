@@ -1,0 +1,178 @@
+{
+  "$schema": "../schema/product.v2.schema.json",
+  "product_id": "jiocredit/las",
+  "partner_id": "jiocredit",
+  "family": "LAS",
+  "product_name_official": "Loan Against Securities (Loan Against Shares + Loan Against Mutual Funds)",
+  "product_summary": "Jio Credit's two-flavour LAS product: Loan Against Shares and Loan Against Mutual Funds. Both are overdraft-revolving facilities — pay interest only on amount utilised. Disbursal claim: 10 minutes. NSDL only, individual demat only.",
+  "scraped_at": "2026-04-27",
+  "review_status": "pending",
+  "review_notes": "Reference record demonstrating v2 shape. JioCredit is StatPro's PREFERRED LAS partner (per scope lock 2026-04-27). Variants for Shares and Mutual Funds carry different ROI floors and fee structures.",
+
+  "base": {
+    "borrower_classes": ["RETAIL_INDIVIDUAL_SALARIED", "RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL"],
+    "loan_facility_types": ["OD_REVOLVING"],
+
+    "pricing": {
+      "roi": {
+        "state": "FLOOR_ONLY",
+        "min_pct": 9.99,
+        "basis": "JFL RPL (Jio Finance Reference Lending Rate) + spread, floating",
+        "benchmark": "JFL_RPL",
+        "is_risk_priced": true,
+        "as_of_date": "2026-04-27"
+      },
+      "processing_fee": {
+        "basis": "PCT_OF_LOAN",
+        "pct_max": 2.0,
+        "notes": "Of sanctioned limit + GST"
+      },
+      "default_interest_pct_pa": 24.0,
+      "bounce_charges": {
+        "flat_inr": 750,
+        "bands": null
+      },
+      "other_charges_notes": "Penal 2%/month on overdue. Stamp duty + statutory charges as per state."
+    },
+
+    "loan_structure": {
+      "ltv_pct_max": 50,
+      "tenure_months_min": null,
+      "tenure_months_max": null,
+      "ticket_inr_min": null,
+      "ticket_inr_max": null
+    },
+
+    "eligibility": {
+      "borrower_classes": ["RETAIL_INDIVIDUAL_SALARIED", "RETAIL_INDIVIDUAL_SE_PROFESSIONAL", "RETAIL_INDIVIDUAL_SE_NON_PROFESSIONAL"],
+      "entity_types": ["Individual"],
+      "individual": {
+        "min_age_at_application": 18,
+        "max_age_at_application": 75,
+        "min_credit_score": null
+      },
+      "geographies": ["India"],
+      "first_time_borrower_accepted": null
+    },
+
+    "collateral_accepted": [
+      { "type": "SECURITIES_LISTED_TOP100",  "preferred": true,  "ltv_override_pct": 50 },
+      { "type": "SECURITIES_LISTED_TOP500",  "preferred": true,  "ltv_override_pct": 50 },
+      { "type": "SECURITIES_DEBT_MF",        "preferred": true,  "ltv_override_pct": null },
+      { "type": "SECURITIES_EQUITY_MF",      "preferred": true,  "ltv_override_pct": null },
+      { "type": "SECURITIES_HYBRID_MF",      "preferred": true,  "ltv_override_pct": null }
+    ],
+
+    "documents_required": {
+      "kyc": ["Aadhaar / PAN / Passport / Voter ID"],
+      "income_salaried":      ["Salary slips", "Form 16", "Bank statements"],
+      "income_self_employed": ["ITR filings", "Business proof", "Bank statements"],
+      "property": [],
+      "business_kyc": [],
+      "other": ["Demat Holding Statement", "Last 6 months bank statements", "Recent passport photographs"]
+    },
+
+    "claimed_turnaround": {
+      "sanction_days_normal": null,
+      "disbursal_days_max": null,
+      "preapproved_customer_disbursal_seconds": 600
+    },
+
+    "delivery_channels": ["DIGITAL_SELF_SERVE", "MOBILE_APP"],
+    "assessment_methods": ["BANK_STATEMENT_BASED"],
+
+    "key_features": [
+      "Disbursal in as little as 10 minutes",
+      "Pay interest only on amount utilised (overdraft revolving)",
+      "Up to 50% LTV on shares; per eligible-funds list for MFs",
+      "100% digital pledge via NSDL",
+      "No prepayment charges — repay anytime",
+      "Add more shares mid-tenure to increase loan limit"
+    ],
+
+    "fees_table_raw": "ROI: 9.99% start (LAS-Shares) / 9.9% start (LAMF). PF: up to 2% of sanctioned limit + GST. Penal: 2%/month on overdue. Bounce: ₹750 + GST per instance. AMC (LAMF only): up to 1% of sanction limit OR ₹2,500, whichever higher + GST. Stamp duty + statutory charges as per state.",
+
+    "las_terms": {
+      "approved_securities_list_url": "https://www.jiocredit.in/loan-against-mutual-funds/#eligible-funds",
+      "approved_securities_summary": "Listed equity shares held in NSDL demat (individual accounts only). Eligible MFs span equity, debt, and hybrid categories — full list on Jio's eligible-funds page.",
+      "ltv_by_security_class": [
+        { "class": "SECURITIES_LISTED_TOP100",  "ltv_pct_max": 50 },
+        { "class": "SECURITIES_LISTED_TOP500",  "ltv_pct_max": 50 },
+        { "class": "SECURITIES_DEBT_MF",        "ltv_pct_max": 75 },
+        { "class": "SECURITIES_EQUITY_MF",      "ltv_pct_max": 50 },
+        { "class": "SECURITIES_HYBRID_MF",      "ltv_pct_max": 60 }
+      ],
+      "depositories_supported": ["NSDL"],
+      "demat_account_types_supported": ["INDIVIDUAL"],
+      "margin_call_threshold_pct": null,
+      "margin_call_remediation": ["EITHER"],
+      "renewal_frequency_months": null,
+      "interest_calculation": "DAILY_ON_UTILISED",
+      "drawdown_model": "OVERDRAFT_REVOLVING",
+      "min_drawdown_inr": null,
+      "demat_pledge_or_lien": "PLEDGE"
+    },
+
+    "bundled_insurance_note": null
+  },
+
+  "variants": [
+    {
+      "code": "AGAINST_SHARES",
+      "label": "Loan Against Shares",
+      "source_url": "https://www.jiocredit.in/loan-against-shares/",
+      "pricing_override": {
+        "roi": {
+          "state": "FLOOR_ONLY",
+          "min_pct": 9.99,
+          "basis": "Floating",
+          "as_of_date": "2026-04-27"
+        }
+      }
+    },
+    {
+      "code": "AGAINST_MUTUAL_FUNDS",
+      "label": "Loan Against Mutual Funds (LAMF)",
+      "source_url": "https://www.jiocredit.in/loan-against-mutual-funds/",
+      "pricing_override": {
+        "roi": {
+          "state": "FLOOR_ONLY",
+          "min_pct": 9.9,
+          "basis": "Floating",
+          "as_of_date": "2026-04-27"
+        },
+        "amc": {
+          "pct_of_limit": 1.0,
+          "fixed_inr": 2500,
+          "basis": "MAX_OF_PCT_AND_FIXED",
+          "applies_to_facility_types": ["OD_REVOLVING"],
+          "starts_after_months": 12
+        }
+      }
+    }
+  ],
+
+  "scheme_overlays": [],
+  "regulatory_disclosures": ["CKYC", "FLOATING_RATE_RESET_OPTIONS"],
+
+  "source_map": {
+    "base.pricing.roi":                         "https://www.jiocredit.in/loan-against-shares/",
+    "base.las_terms.depositories_supported":    "https://www.jiocredit.in/loan-against-shares/",
+    "base.las_terms.demat_account_types_supported": "https://www.jiocredit.in/loan-against-shares/",
+    "variants[code=AGAINST_MUTUAL_FUNDS].pricing_override.amc": "https://www.jiocredit.in/loan-against-mutual-funds/"
+  },
+
+  "data_quality": {
+    "completeness_pct": 0.85,
+    "fields_missing": [
+      "loan_structure.ticket_inr_min",
+      "loan_structure.ticket_inr_max",
+      "loan_structure.tenure_months_min",
+      "loan_structure.tenure_months_max",
+      "las_terms.margin_call_threshold_pct",
+      "las_terms.renewal_frequency_months",
+      "eligibility.individual.min_credit_score"
+    ],
+    "needs_retry_for": []
+  }
+}
