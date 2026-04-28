@@ -20,7 +20,7 @@ import { homeJsonLd } from '@/lib/jsonld'
 // ssr:true keeps them server-rendered for SEO; only the JS is deferred.
 const CalculatorHub      = dynamic(() => import('@/components/sections/CalculatorHub'),      { ssr: true })
 const WestBengalCities   = dynamic(() => import('@/components/sections/WestBengalCities'),   { ssr: true })
-const Partners           = dynamic(() => import('@/components/sections/Partners'),           { ssr: false }) // pure animation, no SEO value
+const Partners           = dynamic(() => import('@/components/sections/Partners'),           { ssr: true })
 const CaseStudies        = dynamic(() => import('@/components/sections/CaseStudies'),        { ssr: true })
 const CollateralsMatrix  = dynamic(() => import('@/components/sections/CollateralsMatrix'),  { ssr: true })
 const Faq                = dynamic(() => import('@/components/sections/Faq'),               { ssr: true })
