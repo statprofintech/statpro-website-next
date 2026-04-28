@@ -6,7 +6,9 @@ export default function robots() {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/apply/thanks', '/client/', '/landingpage/', '/marketing/'],
+        // Both /landingpage/* and /lp/* are crawl-allowed and sitemap-listed;
+        // we want organic discovery on those pages alongside paid traffic.
+        disallow: ['/apply/thanks', '/client/', '/marketing/'],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

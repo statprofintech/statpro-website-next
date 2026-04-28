@@ -13,7 +13,7 @@ export const metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    'StatPro India helps borrowers lower interest cost on Loan Against Property, Lease Rental Discounting and Loan Against Securities. 19 lender partners. AMFI-registered.',
+    'StatPro Fintech helps borrowers lower interest cost on Loan Against Property, Lease Rental Discounting and Loan Against Securities. 19 lender partners. AMFI-registered.',
   formatDetection: { telephone: false },
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],

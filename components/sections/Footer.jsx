@@ -84,7 +84,7 @@ export default function Footer() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
           {/* Brand block */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-flex mb-5" aria-label="StatPro India home">
+            <Link href="/" className="inline-flex mb-5" aria-label="StatPro Fintech home">
               <Logo size={36} dark />
             </Link>
             <div className="text-[11px] uppercase tracking-[0.2em] text-blue-bright font-bold mb-4">

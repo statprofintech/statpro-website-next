@@ -193,7 +193,7 @@ function Hero() {
           </Link>
           <div className="inline-flex items-center gap-2">
             <span className="font-mono text-[11px] text-blue-bright bg-blue-bright/10 border border-blue-bright/20 px-2.5 py-1 rounded-md font-bold">ABOUT</span>
-            <span className="hidden sm:inline text-[11px] uppercase tracking-wider text-white/55 font-semibold">StatPro India</span>
+            <span className="hidden sm:inline text-[11px] uppercase tracking-wider text-white/55 font-semibold">StatPro Fintech</span>
           </div>
         </div>
 
@@ -207,7 +207,7 @@ function Hero() {
               </span>
             </h1>
             <p className="mt-5 text-[15px] lg:text-[16.5px] text-white/70 leading-relaxed max-w-[600px]">
-              StatPro India structures and places corporate credit across 19 partner lenders, and distributes mutual funds as an AMFI-registered intermediary. We pitch your file in parallel, negotiate every counter, and stay with the deal through disbursal — and through the next refinance.
+              StatPro Fintech structures and places corporate credit across 19 partner lenders, and distributes mutual funds as an AMFI-registered intermediary. We pitch your file in parallel, negotiate every counter, and stay with the deal through disbursal — and through the next refinance.
             </p>
             <ul className="mt-6 space-y-2.5 max-w-[600px]">
               {[
@@ -409,7 +409,7 @@ function Comparison() {
                   <th className="px-5 py-4 font-semibold bg-ink text-white">Dimension</th>
                   <th className="px-5 py-4 font-semibold bg-surface-3 text-ink-2">Your bank, alone</th>
                   <th className="px-5 py-4 font-semibold bg-surface-3 text-ink-2">A generic aggregator</th>
-                  <th className="px-5 py-4 font-semibold bg-blue text-white">StatPro India</th>
+                  <th className="px-5 py-4 font-semibold bg-blue text-white">StatPro Fintech</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule">

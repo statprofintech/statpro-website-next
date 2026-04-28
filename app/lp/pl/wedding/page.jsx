@@ -9,7 +9,6 @@ export function generateMetadata() {
     alternates: { canonical: '/lp/pl/wedding' },
     openGraph: { title: seo.title, description: seo.description, images: [{ url: seo.image, width: 1200, height: 630 }] },
     twitter: { title: seo.title, description: seo.description, images: [seo.image] },
-    robots: { index: false, follow: true },  // landing pages stay out of organic
   }
 }
 

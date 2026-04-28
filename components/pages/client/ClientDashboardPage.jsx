@@ -83,7 +83,7 @@ function Dashboard({ d, onReload, onSignOut }) {
       {/* Top bar */}
       <header className="bg-white border-b border-rule sticky top-0 z-30">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" aria-label="StatPro India home"><Logo size={40} /></Link>
+          <Link href="/" aria-label="StatPro Fintech home"><Logo size={40} /></Link>
           <div className="flex items-center gap-3">
             <button onClick={onReload} className="hidden sm:inline-flex items-center gap-1.5 text-[12.5px] text-ink-2 hover:text-ink font-semibold px-3 py-2 rounded-lg hover:bg-surface-2">
               <RefreshCw className="w-3.5 h-3.5" /> Refresh

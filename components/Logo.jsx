@@ -1,4 +1,4 @@
-// StatPro India logo — uses the official PNG asset at /public/statpro-logo.png.
+// StatPro Fintech logo — uses the official PNG asset at /public/statpro-logo.png.
 // `dark` variant: invert luminance for dark backgrounds (footer / dark sections).
 //
 // Brand colours are baked into the PNG asset itself — the icon was
@@ -21,7 +21,7 @@ export default function Logo({ height, size, dark = false, className = "" }) {
         src="/statpro-logo-320.png"
         srcSet="/statpro-logo-200.png 200w, /statpro-logo-320.png 320w, /statpro-logo-480.png 480w, /statpro-logo-640.png 640w"
         sizes={`${h * 4}px`}
-        alt="StatPro India — Reinventing Finance"
+        alt="StatPro Fintech — Reinventing Finance"
         width={h * 4}
         height={h}
         style={{ height: `${h}px`, width: "auto" }}

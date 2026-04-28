@@ -18,13 +18,16 @@ import CollateralsMatrix from '@/components/sections/CollateralsMatrix'
 import Faq from '@/components/sections/Faq'
 import FinalCta from '@/components/sections/FinalCta'
 import WhatsAppButton from '@/components/WhatsAppButton'
-import { getSeoForPath } from '@/lib/seo-config'
+import { getSeoForPath, SITE_NAME } from '@/lib/seo-config'
 import { homeJsonLd } from '@/lib/jsonld'
 
 export function generateMetadata() {
   const seo = getSeoForPath('/')
+  // The layout's `title.template` only fires for *child* pages — the home
+  // route shares the layout default, so we set the suffix explicitly here
+  // to keep brand consistency across the whole site.
   return {
-    title: seo.title,
+    title: { absolute: `${seo.title} | ${SITE_NAME}` },
     description: seo.description,
     keywords: seo.keywords,
     alternates: { canonical: '/' },

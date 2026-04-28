@@ -119,7 +119,7 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-rule">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
-        <Link href="/" aria-label="StatPro India home" className="shrink-0">
+        <Link href="/" aria-label="StatPro Fintech home" className="shrink-0">
           <Logo size={34} />
         </Link>
 
@@ -318,6 +318,42 @@ export default function Navbar() {
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
+
+      {/* SEO-only link rail. Invisible to users (sr-only), but the entire
+          mega-menu inventory — every /lp/* family page — is in the static
+          HTML so crawlers see the internal-linking signal without needing
+          to execute JS or hover the dropdown. */}
+      <nav aria-label="Site index" className="sr-only">
+        <h2>All loan products and landing pages</h2>
+        <ul>
+          {[...PRIMARY, ...SECONDARY].map((it) => (
+            <li key={it.to}>
+              <Link href={it.to}>{it.label}</Link>
+            </li>
+          ))}
+          {QUICK_LINKS.map((it) => (
+            <li key={it.label}>
+              <Link href={it.to}>{it.label}</Link>
+            </li>
+          ))}
+          {FAMILIES.flatMap((fam) =>
+            (LANDING[fam] || []).map((item) => (
+              <li key={item.to}>
+                <Link href={item.to}>
+                  {fam}: {item.label}
+                </Link>
+              </li>
+            ))
+          )}
+          {NAV.map((it) => (
+            <li key={it.to}>
+              <Link href={it.to}>{it.label}</Link>
+            </li>
+          ))}
+          <li><Link href="/apply">Apply</Link></li>
+          <li><Link href="/calculators">Calculators</Link></li>
+        </ul>
+      </nav>
 
       {open && (
         <div className="lg:hidden bg-white border-t border-rule">

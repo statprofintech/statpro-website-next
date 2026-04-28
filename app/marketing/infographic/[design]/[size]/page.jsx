@@ -1,7 +1,7 @@
 import InfographicShell from '@/components/pages/marketing/InfographicShell'
 
 export const metadata = {
-  title: 'Infographic preview — StatPro India',
+  title: 'Infographic preview — StatPro Fintech',
   robots: { index: false, follow: false },
 }
 

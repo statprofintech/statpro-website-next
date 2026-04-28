@@ -207,7 +207,7 @@ export default function ApplyPage() {
       <div className="flex flex-col min-h-screen">
         {/* Top brand bar */}
         <div className="px-8 lg:px-14 pt-8 pb-4 flex items-center justify-between">
-          <Link href="/" aria-label="StatPro India home">
+          <Link href="/" aria-label="StatPro Fintech home">
             <Logo size={42} />
           </Link>
           <Link href="/" className="inline-flex items-center gap-1.5 text-[12.5px] text-ink-soft hover:text-ink font-semibold">
