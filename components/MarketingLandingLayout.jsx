@@ -1,10 +1,11 @@
-"use client";
-
-import { useState } from "react";
+// Server component — no 'use client'. The only stateful child (FAQ accordion)
+// is imported from MarketingLandingFaq.jsx which carries its own 'use client'.
+// This means the H1 in every /lp/* page is server-rendered → immediate LCP.
 import Link from "next/link";
+import MarketingLandingFaq from "@/components/MarketingLandingFaq";
 import {
   ArrowLeft, ArrowRight, ArrowUpRight, Check, Sparkles, ShieldCheck, Phone,
-  Plus, Minus, Clock,
+  Clock,
 } from "lucide-react";
 
 /**
@@ -40,7 +41,7 @@ export default function MarketingLandingLayout({ family = "LAP", parent, config 
       {c.example     && <Example c={c.example} />}
       {c.compare     && <Compare c={c.compare} />}
       {c.eligibility && <Eligibility c={c.eligibility} />}
-      {c.faqs        && <Faq items={c.faqs} />}
+      {c.faqs        && <MarketingLandingFaq items={c.faqs} />}
       {c.cta         && <FinalCta c={c.cta} />}
     </div>
   );
@@ -335,37 +336,6 @@ function Eligibility({ c }) {
               </ul>
             </div>
           )}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────
-function Faq({ items }) {
-  const [open, setOpen] = useState(0);
-  return (
-    <section className="bg-white py-16 lg:py-20 border-b border-rule">
-      <div className="max-w-[1080px] mx-auto px-6 lg:px-8">
-        <SectionHeader eyebrow="FAQ" title="Common questions, answered straight." />
-        <div className="rounded-2xl border border-rule overflow-hidden">
-          {items.map((qa, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={qa.q} className={`${i > 0 ? "border-t border-rule" : ""}`}>
-                <button onClick={() => setOpen(isOpen ? -1 : i)}
-                  className="w-full flex items-start justify-between gap-4 text-left px-5 lg:px-6 py-4.5 hover:bg-surface-2 transition">
-                  <span className="text-[14.5px] lg:text-[15.5px] font-semibold text-ink leading-snug">{qa.q}</span>
-                  <span className="shrink-0 w-7 h-7 grid place-items-center rounded-full bg-blue-soft text-blue mt-0.5">
-                    {isOpen ? <Minus className="w-3.5 h-3.5" strokeWidth={2.5} /> : <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />}
-                  </span>
-                </button>
-                {isOpen && (
-                  <div className="px-5 lg:px-6 pb-5 -mt-1 text-[13.5px] text-ink-muted leading-relaxed">{qa.a}</div>
-                )}
-              </div>
-            );
-          })}
         </div>
       </div>
     </section>
