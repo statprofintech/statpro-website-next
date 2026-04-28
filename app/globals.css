@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@theme {
+  /* Statpro Fintech brand palette — extracted from logo: deep navy + coral pink. */
+  --color-background: #FFFFFF;
+  --color-foreground: #0E1432;        /* deep navy text (logo wordmark colour) */
+  --color-card: #FFFFFF;
+  --color-card-foreground: #0E1432;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #0E1432;
+  --color-primary: #181F4D;           /* brand navy */
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #F4F5FB;         /* navy-tinted off-white */
+  --color-secondary-foreground: #0E1432;
+  --color-muted: #F4F5FB;
+  --color-muted-foreground: #4B5575;
+  --color-accent: #2563EB;            /* primary blue accent (Razorpay-flavoured) */
+  --color-accent-foreground: #FFFFFF;
+  --color-success: #0E7C5E;
+  --color-destructive: #DC2626;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #E5E7F2;
+  --color-input: #E5E7F2;
+  --color-ring: #2563EB;
+  --radius: 0.875rem;
+
+  /* Brand palette (extended) */
+  --color-navy: #181F4D;              /* primary brand navy */
+  --color-navy-2: #2A3270;
+  --color-navy-deep: #0B1133;         /* darker navy for hero / footer */
+  --color-navy-soft: #EFF1FB;         /* tinted bg for navy accents */
+  --color-blue: #1D4ED8;              /* primary blue accent — darkened from #2563EB for 4.5:1 on #DBEAFE */
+  --color-blue-bright: #3B82F6;       /* lighter blue for dark-bg accents */
+  --color-blue-hover: #1D4ED8;
+  --color-blue-soft: #DBEAFE;         /* tinted bg for blue accents */
+  --color-blue-deep: #1E3A8A;
+  --color-blue-glow: #4F8BFF;         /* glow / gradient stop */
+
+  /* Coral aliases mapped to blue — keeps existing `text-coral`/`bg-coral` classes working */
+  --color-coral: #2563EB;
+  --color-coral-hover: #1D4ED8;
+  --color-coral-soft: #DBEAFE;
+  --color-coral-deep: #1E3A8A;
+
+  --color-ink: #0E1432;               /* main text */
+  --color-ink-2: #1F2752;
+  --color-ink-muted: #4B5575;
+  --color-ink-soft: #5A6485;       /* darkened from #6B7595 → 5.05:1 on #F8F9FD (passes WCAG AA) */
+  --color-rule: #E5E7F2;
+  --color-rule-soft: #F0F2F8;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F8F9FD;
+  --color-surface-3: #F4F5FB;
+  --color-cream: #FFF8F4;              /* warm tint for variety */
+
+  --color-green: #0E7C5E;
+  --color-green-soft: #E6F4EE;
+  --color-mint: #15A37F;
+  --color-mint-soft: #E5F7F0;
+
+  /* Type — Inter only */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    margin: 0;
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01", "cv02";
+    -webkit-font-smoothing: antialiased;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
+    font-weight: 600;
+  }
+  h1 { letter-spacing: -0.03em; font-weight: 700; }
+  /* Tabular figures everywhere numbers matter */
+  .tabular, .font-mono, [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.8s ease-out both;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out both;
+  }
+  .animate-slide-left {
+    animation: slideInLeft 0.8s ease-out both;
+  }
+  .animate-slide-right {
+    animation: slideInRight 0.8s ease-out both;
+  }
+  .animate-scale-in {
+    animation: scaleIn 0.6s ease-out both;
+  }
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+  .animation-delay-800 {
+    animation-delay: 800ms;
+  }
+  .font-mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+  }
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .hairline {
+    border-color: var(--color-rule);
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-cyan {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
+}
+
+@keyframes pulse-emerald {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% - var(--gap))); }
+}
+@keyframes marquee-vertical {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(calc(-100% - var(--gap))); }
+}
+@layer utilities {
+  .animate-marquee { animation: marquee var(--duration) linear infinite; }
+  .animate-marquee-vertical { animation: marquee-vertical var(--duration) linear infinite; }
+}
+@keyframes spotlight {
+  0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
+}
+.animate-spotlight {
+  animation: spotlight 2s ease 0.5s 1 forwards;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #64748b; }
