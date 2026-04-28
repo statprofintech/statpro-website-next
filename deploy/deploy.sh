@@ -47,4 +47,7 @@ ssh -i "$OVH_KEY" "$OVH_USER@$OVH_HOST" \
 echo "▶ Reloading nginx…"
 ssh -i "$OVH_KEY" "$OVH_USER@$OVH_HOST" "sudo nginx -t && sudo systemctl reload nginx"
 
+echo "▶ Warming Cloudflare edge cache…"
+bash "$(dirname "$0")/warm-cache.sh"
+
 echo "✓ Deployed. Live at https://www.statproindia.com"
